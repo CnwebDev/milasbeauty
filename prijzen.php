@@ -1,3 +1,8 @@
+<?php
+$navHomeHref = '/';
+$navPricesHref = '/prijzen.php';
+$navContactHref = '#contact';
+?>
 <!doctype html>
 <html lang="nl">
 <head>
@@ -42,48 +47,8 @@
         }
     </script>
 
-    <style>
-        body { background:#f4f3ef; font-weight:400; }
-
-        .heading-highlight { position:relative; font-style:italic; color:#ff80d5; }
-        .heading-highlight::after{
-            content:""; position:absolute; left:0; bottom:0.35em; width:100%; height:0.55em;
-            background:#ffccef; z-index:-1;
-        }
-
-        .btn-primary{
-            display:inline-flex; align-items:center; justify-content:center;
-            font-family:Taviraj, serif; font-weight:600;
-            border:2px solid #ff80d5; color:#ff80d5;
-            background:rgba(255,204,239,0.37);
-            padding:10px 30px; transition:all .3s ease;
-            border-radius:20px 0px;
-        }
-        .btn-primary:hover{ box-shadow:0 0 10px 0 #CA9A8E inset, 0 0 20px 2px #CA9A8E; }
-
-        /* Kleine “pill” badges */
-        .pill{
-            display:inline-flex; align-items:center; gap:.4rem;
-            padding:.35rem .6rem; border-radius:999px;
-            background:rgba(255,204,239,.55); color:#404447;
-            font-weight:600; font-size:.85rem;
-            border:1px solid rgba(255,128,213,.35);
-        }
-
-        /* Pricing table */
-        .price-row{
-            display:flex; align-items:flex-start; justify-content:space-between; gap:1rem;
-            padding:.65rem 0;
-            border-bottom:1px solid rgba(64,68,71,.08);
-        }
-        .price-row:last-child{ border-bottom:none; }
-        .price-name{ font-weight:600; }
-        .price-desc{ font-size:.9rem; opacity:.85; margin-top:.15rem; }
-        .price-val{ font-weight:800; white-space:nowrap; }
-
-        /* Helpers */
-        .hidden-by-search{ display:none !important; }
-    </style>
+    <link rel="stylesheet" href="/assets/css/theme.css" />
+    <link rel="stylesheet" href="/assets/css/prijzen.css" />
 
     <title>Prijzen | Mila Beauty</title>
 </head>
@@ -91,56 +56,10 @@
 <body class="text-brandText font-sans">
 
 <!-- HEADER (zelfde structuur als je home) -->
-<header class="sticky top-0 z-50 bg-headerPink">
-    <div class="mx-auto max-w-container px-4">
-        <div class="flex h-[55px] items-center justify-between">
-            <a href="/" class="flex items-center gap-3">
-                <img
-                    src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/04/WhatsApp-Image-2025-04-16-at-21.27.36.jpeg"
-                    alt="Mila Beauty"
-                    class="h-10 w-10 rounded-full object-cover"
-                />
-                <span class="sr-only">Home</span>
-            </a>
-
-            <nav class="hidden md:flex items-center gap-6 text-white">
-                <a class="hover:opacity-90" href="/">Home</a>
-                <a class="hover:opacity-90" href="/prijzen.html">Prijzen</a>
-                <a class="hover:opacity-90" href="https://salonkee.nl/salon/milas-beauty">Afspraak maken</a>
-                <a class="hover:opacity-90" href="#contact">Contact</a>
-
-                <div class="relative group">
-                    <a class="hover:opacity-90" href="/store">Store</a>
-                    <div class="absolute left-0 mt-2 hidden min-w-[180px] rounded-md bg-headerPink/95 shadow-card group-hover:block">
-                        <a class="block px-4 py-2 text-white hover:bg-white/10" href="/tassen">Tassen</a>
-                        <a class="block px-4 py-2 text-white hover:bg-white/10" href="/kleding">Kleding</a>
-                        <a class="block px-4 py-2 text-white hover:bg-white/10" href="/pakjes">Pakjes</a>
-                    </div>
-                </div>
-
-                <a href="/cart" class="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10" aria-label="Winkelwagen">
-                    🛒
-                </a>
-            </nav>
-
-            <button id="mobileBtn" class="md:hidden text-white text-2xl" aria-label="Menu">☰</button>
-        </div>
-
-        <!-- Mobile menu -->
-        <div id="mobileMenu" class="md:hidden hidden pb-4 text-white">
-            <div class="flex flex-col gap-3">
-                <a href="/">Home</a>
-                <a href="/prijzen.html">Prijzen</a>
-                <a href="https://salonkee.nl/salon/milas-beauty">Afspraak maken</a>
-                <a href="#contact">Contact</a>
-                <a href="/store">Store</a>
-            </div>
-        </div>
-    </div>
-</header>
+<?php require __DIR__ . '/partials/navbar.php'; ?>
 
 <!-- HERO -->
-<section class="py-12">
+<section class="section-pricing py-12">
     <div class="mx-auto max-w-container px-4">
         <div class="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center">
             <div>
@@ -199,7 +118,7 @@
 </section>
 
 <!-- PRICES GRID -->
-<section class="pb-16">
+<section class="section-pricing-search pb-16">
     <div class="mx-auto max-w-container px-4">
 
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -977,7 +896,7 @@
 </section>
 
 <!-- WEET U DAT + OPENINGSTIJDEN -->
-<section id="openingstijden" class="pb-16">
+<section id="openingstijden" class="section-pricing pb-16">
     <div class="mx-auto max-w-container px-4">
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
 
@@ -1043,7 +962,7 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="pb-16">
+<section id="contact" class="section-pricing-contact pb-16">
     <div class="mx-auto max-w-container px-4">
         <div class="rounded-2xl bg-white shadow-card overflow-hidden">
             <div class="p-6 border-b border-black/5">
@@ -1091,7 +1010,7 @@
     </div>
 </section>
 
-<footer class="py-10">
+<footer class="section-footer py-10">
     <div class="mx-auto max-w-container px-4 text-center text-sm opacity-75">
         <p>© <span id="year"></span> Mila Beauty • Prijzen kunnen wijzigen • Zetfouten voorbehouden</p>
     </div>

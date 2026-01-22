@@ -1,0 +1,44 @@
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(255, 204, 239, 0.55);
+    color: var(--section-text);
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: 1px solid rgba(255, 128, 213, 0.35);
+}
+
+.price-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--section-border);
+}
+
+.price-row:last-child {
+    border-bottom: none;
+}
+
+.price-name {
+    font-weight: 600;
+}
+
+.price-desc {
+    font-size: 0.9rem;
+    opacity: 0.85;
+    margin-top: 0.15rem;
+}
+
+.price-val {
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.hidden-by-search {
+    display: none !important;
+}
