@@ -118,3 +118,64 @@ CREATE TABLE IF NOT EXISTS order_items (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE INDEX idx_order_items_order ON order_items(order_id);
+
+CREATE TABLE IF NOT EXISTS contact_details (
+                                               id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                                               phone VARCHAR(50) NULL,
+                                               email VARCHAR(200) NULL,
+                                               whatsapp VARCHAR(50) NULL,
+                                               address_line VARCHAR(200) NULL,
+                                               postal_code VARCHAR(20) NULL,
+                                               city VARCHAR(100) NULL,
+                                               country VARCHAR(100) NULL,
+                                               created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                               updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS social_media_links (
+                                                  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                                                  platform VARCHAR(80) NOT NULL,
+                                                  url VARCHAR(255) NOT NULL,
+                                                  is_active TINYINT(1) NOT NULL DEFAULT 1,
+                                                  sort_order INT UNSIGNED NOT NULL DEFAULT 0,
+                                                  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                                  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                                  UNIQUE KEY uniq_social_platform (platform)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS opening_hours (
+                                             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                                             day_of_week TINYINT UNSIGNED NOT NULL,
+                                             opens_at TIME NULL,
+                                             closes_at TIME NULL,
+                                             is_closed TINYINT(1) NOT NULL DEFAULT 0,
+                                             note VARCHAR(255) NULL,
+                                             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                             updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                             UNIQUE KEY uniq_opening_day (day_of_week)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS services (
+                                        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                                        title VARCHAR(160) NOT NULL,
+                                        description TEXT NULL,
+                                        image_path VARCHAR(255) NULL,
+                                        is_active TINYINT(1) NOT NULL DEFAULT 1,
+                                        sort_order INT UNSIGNED NOT NULL DEFAULT 0,
+                                        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS faqs (
+                                    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                                    question VARCHAR(255) NOT NULL,
+                                    answer TEXT NOT NULL,
+                                    is_active TINYINT(1) NOT NULL DEFAULT 1,
+                                    sort_order INT UNSIGNED NOT NULL DEFAULT 0,
+                                    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE INDEX idx_social_media_links_active ON social_media_links(is_active);
+CREATE INDEX idx_services_active ON services(is_active);
+CREATE INDEX idx_faqs_active ON faqs(is_active);
