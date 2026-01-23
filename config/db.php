@@ -13,11 +13,11 @@ function db(): PDO
 
     // Pas dit aan naar jouw omgeving
     $host = 'localhost';
-    $dbname = 'asaparfums';
+    $dbname = 'milasbeauty';
     $user = 'root';
     $pass = '';
-//$user = 'root-asa-parfums';
-//$pass = 'sDnLlGonu8%b75*y';
+//$user = 'milasdnasdwqioqe';
+//$pass = 'sDnLlGonu8%b75*yasdddddqweqw';
     $charset = 'utf8mb4';
 
     $dsn = "mysql:host={$host};dbname={$dbname};charset={$charset}";
