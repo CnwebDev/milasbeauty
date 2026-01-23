@@ -359,7 +359,7 @@ $navContactHref = '#contact';
         </div>
 
         <div class="mt-8 text-sm">
-            Mede mogelijk gemaakt door 2026 <a class="underline" href="https://cnweb.nl">CNWEB</a>
+            Mede mogelijk gemaakt door 2026 <a class="underline" href="https://racdigital.nl">RAC DIGITAL</a>
         </div>
     </div>
 </footer>
