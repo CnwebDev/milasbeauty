@@ -22,9 +22,12 @@ include __DIR__ . '/../includes/header.php';
         <p class="mt-3 text-brandText/70">Beheer veelgestelde vragen zodat bezoekers direct antwoord hebben.</p>
     </div>
 
-    <div class="rounded-[22px] px-5 py-4 bg-white shadow-card border border-black/5">
-        <div class="text-xs uppercase tracking-[.3em] text-brandText/60">FAQ</div>
-        <div class="mt-2 text-lg font-medium text-brandText"><?= count($faqs) ?> items</div>
+    <div class="flex flex-wrap items-center gap-3">
+        <a class="btn btn-primary" href="/admin/faqs/create.php">Nieuwe FAQ</a>
+        <div class="rounded-[22px] px-5 py-4 bg-white shadow-card border border-black/5">
+            <div class="text-xs uppercase tracking-[.3em] text-brandText/60">FAQ</div>
+            <div class="mt-2 text-lg font-medium text-brandText"><?= count($faqs) ?> items</div>
+        </div>
     </div>
 </div>
 
@@ -33,7 +36,7 @@ include __DIR__ . '/../includes/header.php';
 <div class="mt-8 grid gap-4">
     <?php if (!$faqs): ?>
         <div class="rounded-[24px] p-6 bg-white shadow-card border border-black/5 text-brandText/70">
-            Nog geen FAQ-items toegevoegd. Voeg ze toe in de database.
+            Nog geen FAQ-items toegevoegd. Maak je eerste item aan.
         </div>
     <?php endif; ?>
 
@@ -43,10 +46,20 @@ include __DIR__ . '/../includes/header.php';
                 <div>
                     <div class="font-serif text-xl text-brandText"><?= h((string)$faq['question']) ?></div>
                     <div class="mt-2 text-sm text-brandText/70"><?= h((string)$faq['answer']) ?></div>
-                    <div class="mt-1 text-sm text-brandText/70">Status: <span class="text-brandText/90"><?= ((int)$faq['is_active'] === 1) ? 'Actief' : 'Inactief' ?></span></div>
-                    <div class="mt-1 text-xs text-brandText/50">Sortering: <?= h((string)$faq['sort_order']) ?> · Laatst bijgewerkt: <?= h((string)$faq['updated_at']) ?></div>
+                    <div class="mt-1 text-sm text-brandText/70">
+                        Status: <span class="text-brandText/90"><?= ((int)$faq['is_active'] === 1) ? 'Actief' : 'Inactief' ?></span>
+                    </div>
+                    <div class="mt-1 text-xs text-brandText/50">
+                        Sortering: <?= h((string)$faq['sort_order']) ?> · Laatst bijgewerkt: <?= h((string)$faq['updated_at']) ?>
+                    </div>
                 </div>
-                <span class="text-xs text-brandText/50">Bewerken volgt</span>
+                <div class="flex gap-2">
+                    <a class="btn btn-secondary" href="/admin/faqs/edit.php?id=<?= (int)$faq['id'] ?>">Aanpassen</a>
+                    <a class="btn btn-danger"
+                       href="/admin/faqs/delete.php?id=<?= (int)$faq['id'] ?>"
+                       onclick="return confirm('Weet je zeker dat je deze FAQ wilt verwijderen?');"
+                    >Verwijderen</a>
+                </div>
             </div>
         </div>
     <?php endforeach; ?>
