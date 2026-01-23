@@ -106,16 +106,6 @@ include __DIR__ . '/includes/header.php';
     </div>
 
     <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5">
-        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Diensten</div>
-        <h3 class="mt-3 font-serif text-xl">Diensten beheren</h3>
-        <p class="mt-3 text-brandText/70">Titels, omschrijvingen en afbeeldingen voor de dienstencatalogus.</p>
-        <div class="mt-6 flex flex-wrap gap-3">
-            <a class="btn btn-secondary" href="/admin/content/services.php">Beheer diensten</a>
-        </div>
-        <div class="mt-6 text-xs text-brandText/50"><?= $serviceCount ?> dienst(en) aangemaakt.</div>
-    </div>
-
-    <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5 md:col-span-2">
         <div class="text-xs tracking-[.34em] uppercase text-brandText/60">FAQ</div>
         <h3 class="mt-3 font-serif text-xl">Veel gestelde vragen</h3>
         <p class="mt-3 text-brandText/70">Beheer FAQ-items zodat klanten snel antwoord vinden.</p>
@@ -124,6 +114,17 @@ include __DIR__ . '/includes/header.php';
         </div>
         <div class="mt-6 text-xs text-brandText/50"><?= $faqCount ?> FAQ-item(s) beschikbaar.</div>
     </div>
+<!--    <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5">-->
+<!--        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Diensten</div>-->
+<!--        <h3 class="mt-3 font-serif text-xl">Diensten beheren</h3>-->
+<!--        <p class="mt-3 text-brandText/70">Titels, omschrijvingen en afbeeldingen voor de dienstencatalogus.</p>-->
+<!--        <div class="mt-6 flex flex-wrap gap-3">-->
+<!--            <a class="btn btn-secondary" href="/admin/content/services.php">Beheer diensten</a>-->
+<!--        </div>-->
+<!--        <div class="mt-6 text-xs text-brandText/50">--><?php //= $serviceCount ?><!-- dienst(en) aangemaakt.</div>-->
+<!--    </div>-->
+
+
 </div>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
