@@ -90,7 +90,7 @@ include __DIR__ . '/includes/header.php';
         <h3 class="mt-3 font-serif text-xl">Social media kanalen</h3>
         <p class="mt-3 text-brandText/70">Beheer links naar Instagram, TikTok, Facebook en andere kanalen.</p>
         <div class="mt-6 flex flex-wrap gap-3">
-            <a class="btn btn-secondary" href="/admin/content/social-media.php">Beheer social links</a>
+            <a class="btn btn-secondary" href="/admin/social/">Beheer social links</a>
         </div>
         <div class="mt-6 text-xs text-brandText/50"><?= $socialCount ?> social link(s) ingesteld.</div>
     </div>
