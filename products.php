@@ -2,7 +2,9 @@
 declare(strict_types=1);
 require_once __DIR__ . '/config/db.php';
 
-if (session_status() === PHP_SESSION_NONE) session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $pdo = db();
 $cart = $_SESSION['cart'] ?? [];
@@ -27,135 +29,140 @@ $sql .= " ORDER BY updated_at DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $products = $stmt->fetchAll();
+
+$navHomeHref = '/';
+$navPricesHref = '/prijzen.php';
+$navContactHref = '/#contact';
 ?>
 <!doctype html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ASA Parfums — Producten</title>
+    <title>Producten | Mila Beauty</title>
 
-    <link rel="stylesheet" href="assets/css/tailwind.css" />
-    <link rel="stylesheet" href="assets/css/custom.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Taviraj:wght@600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandPink: "#ff80d5",
+                        brandPinkSoft: "#ffccef",
+                        brandBg: "#f4f3ef",
+                        brandAccent: "#CA9A8E",
+                        brandText: "#404447",
+                        headerPink: "rgba(255,128,213,0.61)",
+                    },
+                    fontFamily: {
+                        sans: ["Montserrat", "ui-sans-serif", "system-ui"],
+                        serif: ["Taviraj", "ui-serif", "Georgia"],
+                    },
+                    boxShadow: {
+                        card: "4px 4px 8px 0px rgba(0,0,0,0.1)",
+                        img: "4px 4px 20px 0px rgba(132,153,148,0.5)",
+                        insetGlow: "0 0 10px 0 #CA9A8E inset, 0 0 20px 2px #CA9A8E",
+                    },
+                    borderRadius: {
+                        fancy: "20px 0px 20px 0px",
+                        fancyImg: "100px 0px 0px 0px",
+                    },
+                    maxWidth: { container: "1220px" },
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="/assets/css/theme.css" />
 </head>
 
-<body class="page-body">
+<body class="text-brandText font-sans">
+<?php require __DIR__ . '/partials/navbar.php'; ?>
 
-<!-- Top Glow -->
-<div class="fixed inset-0 -z-50 pointer-events-none">
-    <div class="absolute -top-40 left-1/2 -translate-x-1/2 h-[520px] w-[520px] rounded-full blur-[90px] bg-gold-400/10"></div>
-    <div class="absolute top-40 -left-24 h-[520px] w-[520px] rounded-full blur-[100px] bg-gold-300/8"></div>
-</div>
-
-<!-- NAV -->
-<?php
-$navbarLogo = <<<'HTML'
-<a href="index.php" class="group flex items-center gap-3">
-<!--    <div class="h-10 w-10 rounded-2xl luxe-ring shadow-glow bg-black/30 flex items-center justify-center">-->
-<!--        <span class="font-display gold-text">A</span>-->
-<!--    </div>-->
-    <div class="leading-none">
-        <div class="font-display tracking-[.22em] text-sm gold-text">ASA</div>
-        <div class="text-[11px] tracking-[.34em] text-white/60 -mt-1">PARFUMS</div>
-    </div>
-</a>
-HTML;
-
-ob_start();
-?>
-<div class="flex items-center gap-3">
-    <form method="get" class="hidden sm:flex items-center gap-2">
-        <input
-            name="q"
-            value="<?= h($q) ?>"
-            class="w-56 input-field"
-            placeholder="Zoek geur..."
-        />
-    </form>
-
-    <a href="cart.php" class="btn btn-primary">
-        Winkelwagen
-        <?php if ($cartCount > 0): ?>
-            <span class="ml-2 inline-flex items-center justify-center rounded-full px-2 py-0.5 text-[11px] luxe-ring bg-black/25 text-white/80">
-                <?= (int)$cartCount ?>
-            </span>
-        <?php endif; ?>
-    </a>
-</div>
-<?php
-$navbarRight = ob_get_clean();
-
-require __DIR__ . '/partials/navbar.php';
-?>
-
-<!-- HERO -->
-<section class="relative overflow-hidden">
-    <div class="absolute inset-0 -z-10">
-        <div class="absolute inset-0 bg-radial-hero"></div>
-    </div>
-
-    <div class="mx-auto max-w-7xl px-6 pt-16 pb-10 md:pt-20">
-        <div class="flex items-end justify-between gap-8 flex-wrap">
+<section class="section-hero py-12">
+    <div class="mx-auto max-w-container px-4">
+        <div class="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center">
             <div>
-                <div class="text-xs tracking-[.34em] uppercase text-white/60">Collectie</div>
-                <h1 class="mt-4 font-display text-4xl md:text-5xl leading-[1.05]">
-                    Ontdek de <span class="gold-text">ASA</span> geuren
+                <div class="inline-flex items-center gap-2 rounded-full bg-brandPinkSoft/70 px-4 py-1 text-sm font-semibold">
+                    Shop Mila Beauty
+                </div>
+
+                <h1 class="mt-4 font-serif text-4xl md:text-5xl leading-tight text-brandText">
+                    Onze <span class="heading-highlight">Producten</span>
                 </h1>
-                <p class="mt-4 text-white/75 max-w-2xl">
-                    Luxe geurprofielen, clean & warm. Selecteer je favoriet en voeg toe aan je winkelwagen.
+
+                <p class="mt-4 max-w-xl text-brandText/80">
+                    Ontdek onze geselecteerde beauty & verzorgingsproducten. Kies jouw favoriet en voeg toe aan je winkelwagen.
                 </p>
+
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <a class="btn-primary" href="cart.php">Bekijk winkelwagen</a>
+                    <a class="inline-flex items-center justify-center rounded-2xl border border-brandAccent px-6 py-2 font-semibold text-brandAccent transition hover:bg-brandAccent/10" href="https://salonkee.nl/salon/milas-beauty">Afspraak maken</a>
+                </div>
             </div>
 
-            <form method="get" class="sm:hidden w-full">
-                <input
-                    name="q"
-                    value="<?= h($q) ?>"
-                    class="w-full rounded-2xl px-4 py-3 bg-black/40 luxe-ring outline-none focus:ring-2 focus:ring-gold-400/30 text-sm"
-                    placeholder="Zoek geur..."
-                />
-            </form>
+            <div class="rounded-2xl bg-white shadow-card p-5">
+                <form method="get" class="space-y-3">
+                    <label class="text-sm font-semibold" for="productSearch">Zoek een product</label>
+                    <input
+                        id="productSearch"
+                        name="q"
+                        value="<?= h($q) ?>"
+                        type="text"
+                        placeholder="Bijv. serum, crème, olie..."
+                        class="w-full rounded-xl border border-black/10 bg-brandBg px-4 py-3 outline-none focus:ring-2 focus:ring-brandPink/40"
+                    />
+                    <div class="flex items-center justify-between text-xs text-brandText/60">
+                        <span><?= count($products) ?> resultaten</span>
+                        <?php if ($cartCount > 0): ?>
+                            <span class="inline-flex items-center gap-2 rounded-full bg-brandPinkSoft/60 px-3 py-1 font-semibold">
+                                <?= (int)$cartCount ?> item(s) in je cart
+                            </span>
+                        <?php endif; ?>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <div class="mt-10 hairline"></div>
     </div>
 </section>
 
-<!-- PRODUCTS GRID -->
-<section class="pb-20">
-    <div class="mx-auto max-w-7xl px-6">
+<section class="pb-16">
+    <div class="mx-auto max-w-container px-4">
         <?php if (!$products): ?>
-            <div class="rounded-[28px] p-8 luxe-ring bg-black/25 shadow-glow text-white/70">
-                Geen producten gevonden.
+            <div class="rounded-2xl bg-white p-8 shadow-card text-brandText/70">
+                Geen producten gevonden. Probeer een andere zoekterm.
             </div>
         <?php else: ?>
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <?php foreach ($products as $p): ?>
-                    <article class="group rounded-[28px] overflow-hidden luxe-ring bg-black/35 shadow-glow">
-                        <div class="relative h-[320px]">
+                    <article class="rounded-2xl bg-white shadow-card overflow-hidden flex flex-col">
+                        <div class="h-56 w-full overflow-hidden">
                             <?php if (!empty($p['main_image'])): ?>
-                                <img src="<?= h((string)$p['main_image']) ?>" class="h-full w-full object-cover group-hover:scale-[1.03] transition duration-700" alt="<?= h($p['name']) ?>">
+                                <img src="<?= h((string)$p['main_image']) ?>" class="h-full w-full object-cover transition duration-300 hover:scale-105" alt="<?= h($p['name']) ?>">
                             <?php else: ?>
-                                <div class="h-full w-full bg-black/40 flex items-center justify-center text-white/40">Geen foto</div>
+                                <div class="h-full w-full bg-brandBg flex items-center justify-center text-brandText/50">Geen foto</div>
                             <?php endif; ?>
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent"></div>
                         </div>
-
-                        <div class="p-6">
-                            <h3 class="font-display text-2xl gold-text"><?= h($p['name']) ?></h3>
-                            <p class="mt-2 text-sm text-white/75"><?= h((string)($p['short_description'] ?? '')) ?></p>
+                        <div class="flex-1 p-6">
+                            <h3 class="font-serif text-2xl text-brandText">
+                                <?= h($p['name']) ?>
+                            </h3>
+                            <p class="mt-2 text-sm text-brandText/70">
+                                <?= h((string)($p['short_description'] ?? '')) ?>
+                            </p>
 
                             <div class="mt-5 flex items-center justify-between">
-                                <div class="text-white/70 text-sm">
+                                <div class="text-sm text-brandText/80">
                                     € <?= h(number_format((float)($p['price'] ?? 0), 2, ',', '.')) ?>
                                     <?php if (!empty($p['volume_ml'])): ?>
-                                        <span class="text-white/40">/ <?= (int)$p['volume_ml'] ?>ml</span>
+                                        <span class="text-brandText/50">/ <?= (int)$p['volume_ml'] ?>ml</span>
                                     <?php endif; ?>
                                 </div>
-
-                                <a href="product.php?slug=<?= urlencode((string)$p['slug']) ?>"
-                                   class="btn btn-primary">
-                                    Bekijk
-                                </a>
+                                <a href="product.php?slug=<?= urlencode((string)$p['slug']) ?>" class="btn-primary">Bekijk</a>
                             </div>
                         </div>
                     </article>
@@ -164,40 +171,5 @@ require __DIR__ . '/partials/navbar.php';
         <?php endif; ?>
     </div>
 </section>
-
-<footer class="py-14 border-t border-white/5">
-    <div class="mx-auto max-w-7xl px-6">
-        <div class="flex flex-wrap items-start justify-between gap-10">
-            <div>
-                <div class="font-display tracking-[.22em] text-lg gold-text">ASA PARFUMS</div>
-                <p class="mt-3 text-sm text-white/60 max-w-md">
-                    Luxe parfums met een moderne signatuur. Zwart, goud, en een presence die je voelt.
-                </p>
-            </div>
-            <div class="grid grid-cols-2 gap-10 text-sm text-white/65">
-                <div class="space-y-2">
-                    <div class="text-white/85 font-medium">Shop</div>
-                    <a class="block hover:text-white transition" href="products.php">Producten</a>
-                    <a class="block hover:text-white transition" href="cart.php">Winkelwagen</a>
-                </div>
-                <div class="space-y-2">
-                    <div class="text-white/85 font-medium">Info</div>
-                    <a class="block hover:text-white transition" href="index.php#faq">FAQ</a>
-<!--                    <a class="block hover:text-white transition" href="index.php#cta">Sample set</a>-->
-                </div>
-            </div>
-        </div>
-        <div class="mt-10 hairline"></div>
-        <div class="mt-8 text-xs text-white/45 flex items-center justify-between gap-4 flex-wrap">
-            <div>© <?= date('Y') ?> ASA Parfums. All rights reserved.</div>
-            <div class="flex gap-4">
-                <a class="hover:text-white transition" href="index.php">Home</a>
-                <a class="hover:text-white transition" href="products.php">Producten</a>
-                <a class="hover:text-white transition" href="cart.php">Winkelwagen</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
 </body>
 </html>
