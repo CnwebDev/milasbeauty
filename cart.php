@@ -2,7 +2,9 @@
 declare(strict_types=1);
 require_once __DIR__ . '/config/db.php';
 
-if (session_status() === PHP_SESSION_NONE) session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $pdo = db();
 
@@ -118,14 +120,17 @@ if ($cart) {
     $stmt->execute($ids);
     $products = $stmt->fetchAll();
 
-    // index by id for easy mapping
     $byId = [];
-    foreach ($products as $p) $byId[(int)$p['id']] = $p;
+    foreach ($products as $p) {
+        $byId[(int)$p['id']] = $p;
+    }
 
     foreach ($cart as $pid => $qty) {
         $pid = (int)$pid;
         $qty = (int)$qty;
-        if (!isset($byId[$pid])) continue;
+        if (!isset($byId[$pid])) {
+            continue;
+        }
         $p = $byId[$pid];
 
         $price = (float)($p['price'] ?? 0);
@@ -149,107 +154,95 @@ function money(float $v): string {
     return number_format($v, 2, ',', '.');
 }
 
-// Simple shipping rule (demo)
 $shipping = ($subtotal > 75.0 || $subtotal == 0.0) ? 0.0 : 4.95;
 $total = $subtotal + $shipping;
+
+$navHomeHref = '/';
+$navPricesHref = '/prijzen.php';
+$navContactHref = '/#contact';
 ?>
 <!doctype html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ASA Parfums — Winkelwagen</title>
+    <title>Winkelwagen | Mila Beauty</title>
 
-    <link rel="stylesheet" href="assets/css/tailwind.css" />
-    <link rel="stylesheet" href="assets/css/custom.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Taviraj:wght@600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandPink: "#ff80d5",
+                        brandPinkSoft: "#ffccef",
+                        brandBg: "#f4f3ef",
+                        brandAccent: "#CA9A8E",
+                        brandText: "#404447",
+                        headerPink: "rgba(255,128,213,0.61)",
+                    },
+                    fontFamily: {
+                        sans: ["Montserrat", "ui-sans-serif", "system-ui"],
+                        serif: ["Taviraj", "ui-serif", "Georgia"],
+                    },
+                    boxShadow: {
+                        card: "4px 4px 8px 0px rgba(0,0,0,0.1)",
+                        img: "4px 4px 20px 0px rgba(132,153,148,0.5)",
+                        insetGlow: "0 0 10px 0 #CA9A8E inset, 0 0 20px 2px #CA9A8E",
+                    },
+                    borderRadius: {
+                        fancy: "20px 0px 20px 0px",
+                        fancyImg: "100px 0px 0px 0px",
+                    },
+                    maxWidth: { container: "1220px" },
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="/assets/css/theme.css" />
 </head>
 
-<body class="page-body">
+<body class="text-brandText font-sans">
+<?php require __DIR__ . '/partials/navbar.php'; ?>
 
-<div class="fixed inset-0 -z-50 pointer-events-none">
-    <div class="absolute -top-40 left-1/2 -translate-x-1/2 h-[520px] w-[520px] rounded-full blur-[90px] bg-gold-400/10"></div>
-    <div class="absolute top-40 -left-24 h-[520px] w-[520px] rounded-full blur-[100px] bg-gold-300/8"></div>
-</div>
-
-<?php
-$navbarLogo = <<<'HTML'
-<a href="index.php" class="group flex items-center gap-3">
-<!--    <div class="h-10 w-10 rounded-2xl luxe-ring shadow-glow bg-black/30 flex items-center justify-center">-->
-<!--        <span class="font-display gold-text">A</span>-->
-<!--    </div>-->
-    <div class="leading-none">
-        <div class="font-display tracking-[.22em] text-sm gold-text">ASA</div>
-        <div class="text-[11px] tracking-[.34em] text-white/60 -mt-1">PARFUMS</div>
-    </div>
-</a>
-HTML;
-
-ob_start();
-?>
-<div class="flex items-center gap-3">
-    <a href="products.php" class="hidden sm:inline-flex btn btn-secondary">
-        Verder shoppen
-    </a>
-    <div class="badge badge-gold">
-        Items: <?= (int)$cartCount ?>
-    </div>
-</div>
-<?php
-$navbarRight = ob_get_clean();
-
-require __DIR__ . '/partials/navbar.php';
-?>
-
-<section class="relative overflow-hidden">
-    <div class="absolute inset-0 -z-10">
-        <div class="absolute inset-0 bg-radial-hero"></div>
-    </div>
-
-    <div class="mx-auto max-w-7xl px-6 pt-12 pb-8">
-        <div class="text-xs tracking-[.34em] uppercase text-white/60">Winkelwagen</div>
-        <h1 class="mt-4 font-display text-4xl md:text-5xl leading-[1.05]">
-            Jouw <span class="gold-text">winkelwagen</span>
-        </h1>
-        <p class="mt-4 text-white/75 max-w-2xl">
+<section class="section-hero py-10">
+    <div class="mx-auto max-w-container px-4">
+        <h1 class="font-serif text-4xl md:text-5xl leading-tight text-brandText">Jouw <span class="heading-highlight">winkelwagen</span></h1>
+        <p class="mt-3 max-w-2xl text-brandText/80">
             Controleer je selectie, pas aantallen aan en ga door wanneer je klaar bent om af te rekenen.
         </p>
 
-        <?php if ($added): ?>
-            <div class="mt-6 rounded-[24px] p-5 luxe-ring bg-gold-500/10 text-white/80">
-                Toegevoegd aan winkelwagen ✅
-            </div>
-        <?php endif; ?>
+        <div class="mt-6 space-y-3">
+            <?php if ($added): ?>
+                <div class="rounded-2xl bg-brandPinkSoft/60 px-5 py-3 text-sm font-semibold">Toegevoegd aan winkelwagen ✅</div>
+            <?php endif; ?>
 
-        <?php if ($updated): ?>
-            <div class="mt-6 rounded-[24px] p-5 luxe-ring bg-gold-500/10 text-white/80">
-                Winkelwagen bijgewerkt ✅
-            </div>
-        <?php endif; ?>
+            <?php if ($updated): ?>
+                <div class="rounded-2xl bg-brandPinkSoft/60 px-5 py-3 text-sm font-semibold">Winkelwagen bijgewerkt ✅</div>
+            <?php endif; ?>
 
-        <?php if ($invalid): ?>
-            <div class="mt-6 rounded-[24px] p-5 luxe-ring bg-red-500/10 text-white/80">
-                Sommige invoer was ongeldig en is genegeerd.
-            </div>
-        <?php endif; ?>
-
-        <div class="mt-8 hairline"></div>
+            <?php if ($invalid): ?>
+                <div class="rounded-2xl bg-red-100 px-5 py-3 text-sm font-semibold text-red-700">Sommige invoer was ongeldig en is genegeerd.</div>
+            <?php endif; ?>
+        </div>
     </div>
 </section>
 
-<section class="pb-20">
-    <div class="mx-auto max-w-7xl px-6 grid lg:grid-cols-12 gap-8 items-start">
-
-        <!-- Items -->
+<section class="pb-16">
+    <div class="mx-auto max-w-container px-4 grid gap-8 lg:grid-cols-12">
         <div class="lg:col-span-7">
-            <div class="rounded-[28px] p-6 luxe-ring bg-black/25 shadow-glow">
+            <div class="rounded-2xl bg-white shadow-card p-6">
                 <div class="flex items-center justify-between gap-4 flex-wrap">
-                    <div class="text-sm font-medium">Items</div>
-
+                    <div class="font-semibold text-brandText">Items (<?= (int)$cartCount ?>)</div>
                     <?php if ($cartCount > 0): ?>
                         <form method="post">
                             <input type="hidden" name="action" value="clear">
-                            <button class="rounded-full px-4 py-2 text-xs luxe-ring bg-red-500/10 hover:bg-red-500/15 transition text-white/75"
-                                    onclick="return confirm('Winkelwagen leegmaken?');">
+                            <button class="rounded-full border border-red-300 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50" onclick="return confirm('Winkelwagen leegmaken?');">
                                 Leegmaken
                             </button>
                         </form>
@@ -257,41 +250,40 @@ require __DIR__ . '/partials/navbar.php';
                 </div>
 
                 <?php if ($cartCount === 0): ?>
-                    <div class="mt-6 rounded-2xl p-5 luxe-ring bg-black/30 text-white/70">
-                        Je winkelwagen is leeg. <a class="underline text-white" href="products.php">Bekijk producten</a>.
+                    <div class="mt-6 rounded-xl bg-brandBg px-4 py-4 text-sm text-brandText/70">
+                        Je winkelwagen is leeg. <a class="font-semibold text-brandAccent" href="products.php">Bekijk producten</a>.
                     </div>
                 <?php else: ?>
                     <form method="post" class="mt-6 space-y-4">
                         <input type="hidden" name="action" value="update">
 
                         <?php foreach ($items as $it): ?>
-                            <div class="rounded-2xl p-4 luxe-ring bg-black/30 flex gap-4 items-center flex-wrap">
-                                <a href="product.php?slug=<?= urlencode((string)$it['slug']) ?>"
-                                   class="h-20 w-20 rounded-2xl luxe-ring overflow-hidden bg-black/40 shrink-0 flex items-center justify-center">
+                            <div class="rounded-2xl border border-black/5 bg-brandBg/60 p-4 flex gap-4 items-center flex-wrap">
+                                <a href="product.php?slug=<?= urlencode((string)$it['slug']) ?>" class="h-20 w-20 rounded-xl overflow-hidden bg-white shadow-card flex items-center justify-center">
                                     <?php if (!empty($it['main_image'])): ?>
                                         <img src="<?= h((string)$it['main_image']) ?>" class="h-full w-full object-cover" alt="">
                                     <?php else: ?>
-                                        <span class="text-white/40 text-xs">Geen foto</span>
+                                        <span class="text-xs text-brandText/50">Geen foto</span>
                                     <?php endif; ?>
                                 </a>
 
                                 <div class="flex-1 min-w-[220px]">
-                                    <a class="font-display text-xl gold-text" href="product.php?slug=<?= urlencode((string)$it['slug']) ?>">
+                                    <a class="font-serif text-xl text-brandText" href="product.php?slug=<?= urlencode((string)$it['slug']) ?>">
                                         <?= h($it['name']) ?>
                                     </a>
-                                    <div class="mt-1 text-sm text-white/60">
+                                    <div class="mt-1 text-sm text-brandText/70">
                                         € <?= h(money($it['price'])) ?>
                                         <?php if (!empty($it['volume_ml'])): ?>
-                                            <span class="text-white/40">/ <?= (int)$it['volume_ml'] ?>ml</span>
+                                            <span class="text-brandText/50">/ <?= (int)$it['volume_ml'] ?>ml</span>
                                         <?php endif; ?>
                                     </div>
-                                    <div class="mt-2 text-xs text-white/45">
+                                    <div class="mt-2 text-xs text-brandText/60">
                                         Subtotaal: € <?= h(money($it['line'])) ?>
                                     </div>
                                 </div>
 
-                                <div class="flex items-center gap-3">
-                                    <label class="text-xs text-white/60">
+                                <div class="flex items-end gap-3">
+                                    <label class="text-xs font-semibold text-brandText/70">
                                         Aantal
                                         <input
                                             type="number"
@@ -299,7 +291,7 @@ require __DIR__ . '/partials/navbar.php';
                                             max="99"
                                             name="items[<?= (int)$it['id'] ?>]"
                                             value="<?= (int)$it['qty'] ?>"
-                                            class="mt-2 w-20 input-field text-white/85"
+                                            class="mt-2 w-20 rounded-xl border border-black/10 bg-white px-3 py-2 text-sm"
                                         />
                                     </label>
 
@@ -307,7 +299,7 @@ require __DIR__ . '/partials/navbar.php';
                                         type="submit"
                                         name="remove_id"
                                         value="<?= (int)$it['id'] ?>"
-                                        class="mt-6 btn btn-danger text-xs"
+                                        class="rounded-2xl border border-red-300 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50"
                                         onclick="return confirm('Item verwijderen?');"
                                     >
                                         Verwijder
@@ -316,16 +308,12 @@ require __DIR__ . '/partials/navbar.php';
                             </div>
                         <?php endforeach; ?>
 
-                        <div class="pt-2 flex gap-3 flex-wrap">
-                            <button class="btn btn-primary btn-lg">
-                                Update winkelwagen
-                            </button>
-                            <a href="products.php" class="btn btn-secondary btn-lg">
-                                Verder shoppen
-                            </a>
+                        <div class="pt-2 flex flex-wrap gap-3">
+                            <button class="btn-primary" type="submit">Update winkelwagen</button>
+                            <a href="products.php" class="inline-flex items-center justify-center rounded-2xl border border-brandAccent px-6 py-2 font-semibold text-brandAccent transition hover:bg-brandAccent/10">Verder shoppen</a>
                         </div>
 
-                        <p class="text-xs text-white/45">
+                        <p class="text-xs text-brandText/60">
                             Tip: zet aantal op 0 om te verwijderen.
                         </p>
                     </form>
@@ -333,78 +321,54 @@ require __DIR__ . '/partials/navbar.php';
             </div>
         </div>
 
-        <!-- Summary -->
         <div class="lg:col-span-5">
-            <div class="rounded-[28px] p-6 luxe-ring bg-black/35 shadow-glow relative overflow-hidden">
-                <div class="absolute inset-0 bg-gold-sheen opacity-15"></div>
-                <div class="relative">
-                    <div class="text-sm font-medium">Overzicht</div>
+            <div class="rounded-2xl bg-white shadow-card p-6">
+                <div class="font-semibold text-brandText">Overzicht</div>
 
-                    <div class="mt-5 space-y-3 text-sm">
-                        <div class="flex items-center justify-between text-white/75">
-                            <span>Subtotaal</span>
-                            <span>€ <?= h(money($subtotal)) ?></span>
-                        </div>
-                        <div class="flex items-center justify-between text-white/75">
-                            <span>Verzendkosten</span>
-                            <span><?= $shipping == 0.0 ? 'Gratis' : '€ ' . h(money($shipping)) ?></span>
-                        </div>
-                        <div class="hairline my-4"></div>
-                        <div class="flex items-center justify-between">
-                            <span class="font-medium text-white/90">Totaal</span>
-                            <span class="font-display text-2xl gold-text">€ <?= h(money($total)) ?></span>
-                        </div>
-
-                        <div class="mt-5 rounded-2xl p-4 luxe-ring bg-black/25 text-xs text-white/60">
-                            Gratis verzending vanaf € 29.
-                        </div>
+                <div class="mt-5 space-y-3 text-sm text-brandText/80">
+                    <div class="flex items-center justify-between">
+                        <span>Subtotaal</span>
+                        <span>€ <?= h(money($subtotal)) ?></span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Verzendkosten</span>
+                        <span><?= $shipping == 0.0 ? 'Gratis' : '€ ' . h(money($shipping)) ?></span>
+                    </div>
+                    <div class="border-t border-black/5 pt-4 flex items-center justify-between font-semibold text-brandText">
+                        <span>Totaal</span>
+                        <span>€ <?= h(money($total)) ?></span>
                     </div>
 
-                    <?php if ($cartCount === 0): ?>
-                        <div class="btn btn-primary btn-md btn-block btn-disabled shadow-glow mt-6 text-center">
-                            Doorgaan naar afrekenen
-                        </div>
-                    <?php else: ?>
-                        <a
-                            href="checkout.php"
-                            class="btn btn-primary btn-md btn-block shadow-glow mt-6 inline-flex items-center justify-center"
-                        >
-                            Doorgaan naar afrekenen
-                        </a>
-                    <?php endif; ?>
-
-                    <div class="mt-4 text-xs text-white/45">
-                        Afrekenen met iDeal Voeg Mollie/Stripe later toe.
+                    <div class="mt-4 rounded-xl bg-brandBg px-4 py-3 text-xs">
+                        Gratis verzending vanaf € 75.
                     </div>
+                </div>
+
+                <?php if ($cartCount === 0): ?>
+                    <div class="mt-6 rounded-2xl bg-brandPinkSoft/60 px-4 py-3 text-center text-sm font-semibold text-brandText/70">
+                        Doorgaan naar afrekenen
+                    </div>
+                <?php else: ?>
+                    <a href="checkout.php" class="btn-primary mt-6 w-full justify-center">Doorgaan naar afrekenen</a>
+                <?php endif; ?>
+
+                <div class="mt-4 text-xs text-brandText/60">
+                    Afrekenen via Mollie (iDEAL, creditcard, etc.).
                 </div>
             </div>
 
             <div class="mt-6 grid grid-cols-2 gap-4">
-                <div class="rounded-2xl p-5 luxe-ring bg-black/25">
-                    <div class="text-xs tracking-[.28em] uppercase text-white/60">Packaging</div>
-                    <div class="mt-2 text-sm text-white/80">Premium unboxing feel.</div>
+                <div class="rounded-2xl bg-white shadow-card p-5">
+                    <div class="text-xs font-semibold uppercase tracking-[0.2em] text-brandText/60">Service</div>
+                    <div class="mt-2 text-sm text-brandText/80">Persoonlijk advies bij vragen.</div>
                 </div>
-                <div class="rounded-2xl p-5 luxe-ring bg-black/25">
-                    <div class="text-xs tracking-[.28em] uppercase text-white/60">Support</div>
-                    <div class="mt-2 text-sm text-white/80">Snelle service & advies.</div>
+                <div class="rounded-2xl bg-white shadow-card p-5">
+                    <div class="text-xs font-semibold uppercase tracking-[0.2em] text-brandText/60">Levering</div>
+                    <div class="mt-2 text-sm text-brandText/80">Snelle verzending vanuit onze studio.</div>
                 </div>
             </div>
         </div>
-
     </div>
 </section>
-
-<footer class="py-14 border-t border-white/5">
-    <div class="mx-auto max-w-7xl px-6">
-        <div class="mt-8 flex flex-wrap items-center justify-between gap-4 text-xs text-white/45">
-            <div>© <?= date('Y') ?> ASA Parfums. All rights reserved.</div>
-            <div class="flex gap-4">
-                <a class="hover:text-white transition" href="products.php">Producten</a>
-                <a class="hover:text-white transition" href="cart.php">Winkelwagen</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
 </body>
 </html>
