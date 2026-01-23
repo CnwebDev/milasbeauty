@@ -34,18 +34,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $note = trim((string)($dayData['note'] ?? ''));
         $isClosed = isset($dayData['is_closed']) ? 1 : 0;
 
-        if ($isClosed === 0) {
+        if ($isClosed === 1) {
+            $opensAt = '';
+            $closesAt = '';
+        } else {
             if ($opensAt === '' || $closesAt === '') {
                 $errors[] = "Vul openingstijden in voor {$dayLabel}.";
             }
-        }
 
-        if ($opensAt !== '' && !preg_match('/^\d{2}:\d{2}$/', $opensAt)) {
-            $errors[] = "Ongeldig tijdstip voor {$dayLabel} (open).";
-        }
+            if ($opensAt !== '' && !preg_match('/^\d{2}:\d{2}$/', $opensAt)) {
+                $errors[] = "Ongeldig tijdstip voor {$dayLabel} (open).";
+            }
 
-        if ($closesAt !== '' && !preg_match('/^\d{2}:\d{2}$/', $closesAt)) {
-            $errors[] = "Ongeldig tijdstip voor {$dayLabel} (sluit).";
+            if ($closesAt !== '' && !preg_match('/^\d{2}:\d{2}$/', $closesAt)) {
+                $errors[] = "Ongeldig tijdstip voor {$dayLabel} (sluit).";
+            }
         }
 
         $updates[$dayNumber] = [
@@ -130,7 +133,7 @@ include __DIR__ . '/../includes/header.php';
 <form class="mt-8 grid gap-4" method="post">
     <?php foreach ($dayLabels as $dayNumber => $dayLabel): ?>
         <?php $day = $openingHoursByDay[$dayNumber] ?? null; ?>
-        <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5">
+        <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5" data-day-row>
             <div class="flex items-start justify-between gap-6 flex-wrap">
                 <div class="min-w-[220px]">
                     <div class="font-serif text-xl text-brandText"><?= h($dayLabel) ?></div>
@@ -144,9 +147,12 @@ include __DIR__ . '/../includes/header.php';
                         <span class="text-brandText/70">Open</span>
                         <input
                             type="time"
+                            step="60"
                             name="days[<?= (int)$dayNumber ?>][opens_at]"
                             value="<?= h((string)($day['opens_at'] ?? '')) ?>"
                             class="rounded-xl border border-black/10 bg-brandBg px-3 py-2"
+                            data-time-input
+                            <?= ((int)($day['is_closed'] ?? 0) === 1) ? 'disabled' : '' ?>
                         />
                     </label>
 
@@ -154,9 +160,12 @@ include __DIR__ . '/../includes/header.php';
                         <span class="text-brandText/70">Dicht</span>
                         <input
                             type="time"
+                            step="60"
                             name="days[<?= (int)$dayNumber ?>][closes_at]"
                             value="<?= h((string)($day['closes_at'] ?? '')) ?>"
                             class="rounded-xl border border-black/10 bg-brandBg px-3 py-2"
+                            data-time-input
+                            <?= ((int)($day['is_closed'] ?? 0) === 1) ? 'disabled' : '' ?>
                         />
                     </label>
 
@@ -167,6 +176,7 @@ include __DIR__ . '/../includes/header.php';
                             value="1"
                             class="h-4 w-4 rounded border-black/20"
                             <?= ((int)($day['is_closed'] ?? 0) === 1) ? 'checked' : '' ?>
+                            data-closed-toggle
                         />
                         Gesloten
                     </label>
@@ -189,5 +199,29 @@ include __DIR__ . '/../includes/header.php';
         <button class="btn btn-primary" type="submit">Opslaan</button>
     </div>
 </form>
+
+<script>
+    document.querySelectorAll('[data-day-row]').forEach((row) => {
+        const toggle = row.querySelector('[data-closed-toggle]');
+        const timeInputs = row.querySelectorAll('[data-time-input]');
+
+        if (!toggle || timeInputs.length === 0) {
+            return;
+        }
+
+        const updateState = () => {
+            const isClosed = toggle.checked;
+            timeInputs.forEach((input) => {
+                if (isClosed) {
+                    input.value = '';
+                }
+                input.disabled = isClosed;
+            });
+        };
+
+        toggle.addEventListener('change', updateState);
+        updateState();
+    });
+</script>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
