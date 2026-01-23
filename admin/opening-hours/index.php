@@ -19,6 +19,18 @@ $dayLabels = [
     7 => 'Zondag',
 ];
 
+$formatTimeValue = static function (?string $time): string {
+    if ($time === null || $time === '') {
+        return '';
+    }
+
+    if (preg_match('/^\d{2}:\d{2}(:\d{2})?$/', $time)) {
+        return substr($time, 0, 5);
+    }
+
+    return $time;
+};
+
 $successMessage = null;
 $errorMessage = null;
 
@@ -38,6 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $opensAt = '';
             $closesAt = '';
         } else {
+            $opensAt = $formatTimeValue($opensAt);
+            $closesAt = $formatTimeValue($closesAt);
+
             if ($opensAt === '' || $closesAt === '') {
                 $errors[] = "Vul openingstijden in voor {$dayLabel}.";
             }
@@ -149,7 +164,7 @@ include __DIR__ . '/../includes/header.php';
                             type="time"
                             step="60"
                             name="days[<?= (int)$dayNumber ?>][opens_at]"
-                            value="<?= h((string)($day['opens_at'] ?? '')) ?>"
+                            value="<?= h($formatTimeValue((string)($day['opens_at'] ?? ''))) ?>"
                             class="rounded-xl border border-black/10 bg-brandBg px-3 py-2"
                             data-time-input
                             <?= ((int)($day['is_closed'] ?? 0) === 1) ? 'disabled' : '' ?>
@@ -162,7 +177,7 @@ include __DIR__ . '/../includes/header.php';
                             type="time"
                             step="60"
                             name="days[<?= (int)$dayNumber ?>][closes_at]"
-                            value="<?= h((string)($day['closes_at'] ?? '')) ?>"
+                            value="<?= h($formatTimeValue((string)($day['closes_at'] ?? ''))) ?>"
                             class="rounded-xl border border-black/10 bg-brandBg px-3 py-2"
                             data-time-input
                             <?= ((int)($day['is_closed'] ?? 0) === 1) ? 'disabled' : '' ?>
