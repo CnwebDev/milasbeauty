@@ -16,19 +16,26 @@ $allergens = '';
 $price = '';
 $volume_ml = '';
 $is_active = 1;
-$sizes = '';
-$colors = '';
+$sizeInputs = [''];
+$colorInputs = [''];
 
-function parse_option_list(string $value): array {
-    $parts = preg_split('/[\r\n,]+/', $value);
+function normalize_option_inputs(array $values): array {
     $items = [];
-    foreach ($parts as $part) {
-        $trimmed = trim($part);
+    foreach ($values as $value) {
+        $trimmed = trim((string)$value);
         if ($trimmed !== '') {
             $items[] = $trimmed;
         }
     }
     return array_values(array_unique($items));
+}
+
+function prepare_option_inputs(array $values): array {
+    $items = array_map('trim', $values);
+    if (!$items) {
+        return [''];
+    }
+    return $items;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -41,8 +48,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = trim((string)($_POST['price'] ?? ''));
     $volume_ml = trim((string)($_POST['volume_ml'] ?? ''));
     $is_active = (int)(($_POST['is_active'] ?? '1')) === 1 ? 1 : 0;
-    $sizes = trim((string)($_POST['sizes'] ?? ''));
-    $colors = trim((string)($_POST['colors'] ?? ''));
+    $sizeInputs = $_POST['sizes'] ?? [];
+    $colorInputs = $_POST['colors'] ?? [];
+    $sizeInputs = is_array($sizeInputs) ? prepare_option_inputs($sizeInputs) : [''];
+    $colorInputs = is_array($colorInputs) ? prepare_option_inputs($colorInputs) : [''];
 
     if ($name === '') $errors[] = 'Naam is verplicht.';
 
@@ -70,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $productId = (int)$pdo->lastInsertId();
 
-        $sizeValues = parse_option_list($sizes);
+        $sizeValues = normalize_option_inputs($sizeInputs);
         if ($sizeValues) {
             $stmt = $pdo->prepare("INSERT INTO product_sizes (product_id, size_label, sort_order) VALUES (?, ?, ?)");
             foreach ($sizeValues as $index => $value) {
@@ -78,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        $colorValues = parse_option_list($colors);
+        $colorValues = normalize_option_inputs($colorInputs);
         if ($colorValues) {
             $stmt = $pdo->prepare("INSERT INTO product_colors (product_id, color_label, sort_order) VALUES (?, ?, ?)");
             foreach ($colorValues as $index => $value) {
@@ -228,17 +237,33 @@ include __DIR__ . '/../includes/header.php';
                 <textarea name="allergens" rows="3" class="mt-2 input-field" placeholder="Bijv: Limonene, Linalool, Citral, ..."><?= h($allergens) ?></textarea>
             </label>
 
-            <label class="text-sm text-brandText/80">
-                Maten (optioneel)
-                <textarea name="sizes" rows="3" class="mt-2 input-field" placeholder="Bijv: 30 ml&#10;50 ml&#10;100 ml"><?= h($sizes) ?></textarea>
-                <div class="mt-1 text-xs text-brandText/50">Vul per regel één maat in. Je kunt ook komma's gebruiken.</div>
-            </label>
+            <div class="text-sm text-brandText/80">
+                <div class="font-medium">Maten (optioneel)</div>
+                <div class="mt-2 grid gap-2" data-list="sizes">
+                    <?php foreach ($sizeInputs as $value): ?>
+                        <div class="flex gap-2">
+                            <input name="sizes[]" value="<?= h($value) ?>" class="input-field flex-1" placeholder="Bijv: 50 ml" />
+                            <button type="button" class="btn btn-secondary" data-remove>Verwijder</button>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <button type="button" class="mt-2 btn btn-secondary" data-add>Voeg nog een toe</button>
+                <div class="mt-1 text-xs text-brandText/50">Voeg elke maat als losse regel toe.</div>
+            </div>
 
-            <label class="text-sm text-brandText/80">
-                Kleuren (optioneel)
-                <textarea name="colors" rows="3" class="mt-2 input-field" placeholder="Bijv: Rose Gold&#10;Midnight Black"><?= h($colors) ?></textarea>
-                <div class="mt-1 text-xs text-brandText/50">Vul per regel één kleur in. Je kunt ook komma's gebruiken.</div>
-            </label>
+            <div class="text-sm text-brandText/80">
+                <div class="font-medium">Kleuren (optioneel)</div>
+                <div class="mt-2 grid gap-2" data-list="colors">
+                    <?php foreach ($colorInputs as $value): ?>
+                        <div class="flex gap-2">
+                            <input name="colors[]" value="<?= h($value) ?>" class="input-field flex-1" placeholder="Bijv: Rose Gold" />
+                            <button type="button" class="btn btn-secondary" data-remove>Verwijder</button>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <button type="button" class="mt-2 btn btn-secondary" data-add>Voeg nog een toe</button>
+                <div class="mt-1 text-xs text-brandText/50">Voeg elke kleur als losse regel toe.</div>
+            </div>
 
             <div class="grid sm:grid-cols-3 gap-4">
                 <label class="text-sm text-brandText/80">
@@ -288,5 +313,49 @@ include __DIR__ . '/../includes/header.php';
         </div>
     </div>
 </form>
+
+<script>
+    document.querySelectorAll('[data-list]').forEach((list) => {
+        const addButton = list.parentElement.querySelector('[data-add]');
+        const buildRow = () => {
+            const row = document.createElement('div');
+            row.className = 'flex gap-2';
+            row.innerHTML = `
+                <input class="input-field flex-1" />
+                <button type="button" class="btn btn-secondary" data-remove>Verwijder</button>
+            `;
+            row.querySelector('input').name = list.dataset.list + '[]';
+            row.querySelector('input').placeholder = list.dataset.list === 'sizes' ? 'Bijv: 50 ml' : 'Bijv: Rose Gold';
+            return row;
+        };
+
+        const ensureOneRow = () => {
+            if (list.children.length === 0) {
+                list.appendChild(buildRow());
+            }
+        };
+
+        list.addEventListener('click', (event) => {
+            const target = event.target;
+            if (target instanceof HTMLElement && target.matches('[data-remove]')) {
+                const row = target.closest('.flex');
+                if (row) {
+                    if (list.children.length > 1) {
+                        row.remove();
+                    } else {
+                        const input = row.querySelector('input');
+                        if (input) input.value = '';
+                    }
+                }
+            }
+        });
+
+        addButton?.addEventListener('click', () => {
+            list.appendChild(buildRow());
+        });
+
+        ensureOneRow();
+    });
+</script>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>

@@ -188,24 +188,30 @@ $navContactHref = '/#contact';
                 <?php if ($sizes || $colors): ?>
                     <div class="mt-5 space-y-4">
                         <?php if ($sizes): ?>
-                            <div>
+                            <div class="rounded-2xl bg-brandBg/70 p-4">
                                 <div class="text-xs font-semibold uppercase tracking-[0.2em] text-brandText/60">Maten</div>
-                                <div class="mt-2 flex flex-wrap gap-2">
+                                <ul class="mt-3 grid gap-2 text-sm text-brandText/80">
                                     <?php foreach ($sizes as $size): ?>
-                                        <span class="rounded-full bg-brandBg px-3 py-1 text-xs font-semibold text-brandText/70"><?= h((string)$size) ?></span>
+                                        <li class="flex items-center gap-2">
+                                            <span class="h-2 w-2 rounded-full bg-brandAccent"></span>
+                                            <?= h((string)$size) ?>
+                                        </li>
                                     <?php endforeach; ?>
-                                </div>
+                                </ul>
                             </div>
                         <?php endif; ?>
 
                         <?php if ($colors): ?>
-                            <div>
+                            <div class="rounded-2xl bg-brandBg/70 p-4">
                                 <div class="text-xs font-semibold uppercase tracking-[0.2em] text-brandText/60">Kleuren</div>
-                                <div class="mt-2 flex flex-wrap gap-2">
+                                <ul class="mt-3 grid gap-2 text-sm text-brandText/80">
                                     <?php foreach ($colors as $color): ?>
-                                        <span class="rounded-full bg-brandBg px-3 py-1 text-xs font-semibold text-brandText/70"><?= h((string)$color) ?></span>
+                                        <li class="flex items-center gap-2">
+                                            <span class="h-2 w-2 rounded-full bg-brandAccent"></span>
+                                            <?= h((string)$color) ?>
+                                        </li>
                                     <?php endforeach; ?>
-                                </div>
+                                </ul>
                             </div>
                         <?php endif; ?>
                     </div>
