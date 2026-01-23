@@ -24,23 +24,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $pageTitle = 'Login';
 $showAdminNav = false;
 $bodyClass = 'admin-body min-h-screen';
-$mainClass = 'mx-auto max-w-7xl px-6 py-10 flex items-center justify-center';
+$mainClass = 'mx-auto max-w-container px-4 md:px-8 py-10 flex items-center justify-center';
 
 include __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="w-full max-w-md rounded-[32px] p-8 luxe-ring bg-black/35 shadow-luxe">
+<div class="w-full max-w-md rounded-[32px] p-8 bg-white shadow-card border border-black/5">
 
     <!-- Logo / title -->
     <div class="text-center">
-        <div class="font-display tracking-[.34em] text-sm gold-text">ASA</div>
-        <div class="text-xs tracking-[.32em] text-white/60 -mt-1">ADMIN PANEL</div>
-        <h1 class="mt-6 font-display text-3xl">Inloggen</h1>
-        <p class="mt-2 text-sm text-white/60">Beveiligde beheeromgeving</p>
+        <div class="font-serif tracking-[.22em] text-sm text-brandText">Mila Beauty</div>
+        <div class="text-xs tracking-[.32em] text-brandText/60 -mt-1">ADMIN PANEL</div>
+        <h1 class="mt-6 font-serif text-3xl">Inloggen</h1>
+        <p class="mt-2 text-sm text-brandText/60">Beveiligde beheeromgeving</p>
     </div>
 
     <?php if ($error): ?>
-        <div class="mt-6 rounded-2xl p-4 luxe-ring bg-red-500/10 text-sm text-red-200">
+        <div class="mt-6 rounded-2xl p-4 border border-red-200 bg-red-50 text-sm text-red-700">
             <?= h($error) ?>
         </div>
     <?php endif; ?>
@@ -48,18 +48,18 @@ include __DIR__ . '/../includes/header.php';
     <!-- Form -->
     <form method="post" class="mt-8 space-y-4">
 
-        <label class="block text-sm text-white/80">
+        <label class="block text-sm text-brandText/80">
             E-mail
             <input
                     type="email"
                     name="email"
                     required
                     class="mt-2 input-field"
-                    placeholder="admin@asaparfums.nl"
+                    placeholder="admin@milabeauty.nl"
             />
         </label>
 
-        <label class="block text-sm text-white/80">
+        <label class="block text-sm text-brandText/80">
             Wachtwoord
             <input
                     type="password"
@@ -78,8 +78,8 @@ include __DIR__ . '/../includes/header.php';
         </button>
     </form>
 
-    <div class="mt-6 text-center text-xs text-white/40">
-        © <?= date('Y') ?> ASA Parfums
+    <div class="mt-6 text-center text-xs text-brandText/50">
+        © <?= date('Y') ?> Mila Beauty
     </div>
 </div>
 <?php include __DIR__ . '/../includes/footer.php'; ?>

@@ -148,66 +148,66 @@ $pageTitle = "Nieuw product";
 include __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="text-xs tracking-[.34em] uppercase text-white/60">Product</div>
-<h1 class="mt-3 font-display text-3xl md:text-4xl">Nieuw product</h1>
+<div class="text-xs tracking-[.34em] uppercase text-brandText/60">Product</div>
+<h1 class="mt-3 font-serif text-3xl md:text-4xl">Nieuw product</h1>
 
 <?php if ($errors): ?>
-    <div class="mt-6 rounded-[24px] p-5 luxe-ring bg-red-500/10 text-white/80">
+    <div class="mt-6 rounded-[24px] p-5 border border-red-200 bg-red-50 text-red-700">
         <div class="font-medium mb-2">Er ging iets mis:</div>
-        <ul class="list-disc ml-5 text-sm text-white/75">
+        <ul class="list-disc ml-5 text-sm text-red-600">
             <?php foreach ($errors as $e): ?><li><?= h($e) ?></li><?php endforeach; ?>
         </ul>
     </div>
 <?php endif; ?>
 
 <form class="mt-8 grid lg:grid-cols-12 gap-6" method="post" enctype="multipart/form-data">
-    <div class="lg:col-span-7 rounded-[28px] p-6 luxe-ring bg-black/25 shadow-glow">
+    <div class="lg:col-span-7 rounded-[28px] p-6 bg-white shadow-card border border-black/5">
         <div class="grid gap-4">
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Naam *
                 <input name="name" value="<?= h($name) ?>" class="mt-2 input-field" />
             </label>
 
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Slug (optioneel)
                 <input name="slug" value="<?= h($slug) ?>" class="mt-2 input-field" placeholder="bv: noir-ambre" />
             </label>
 
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Korte omschrijving
                 <input name="short_description" value="<?= h($short_description) ?>" class="mt-2 input-field" />
             </label>
 
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Beschrijving
                 <textarea name="description" rows="5" class="mt-2 input-field"><?= h($description) ?></textarea>
             </label>
 
             <!-- NEW -->
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Ingrediënten (optioneel)
                 <textarea name="ingredients" rows="4" class="mt-2 input-field" placeholder="Bijv: Alcohol Denat., Parfum, Aqua, ..."><?= h($ingredients) ?></textarea>
-                <div class="mt-1 text-xs text-white/45">Tip: plak hier je ingrediëntenlijst (INCI) zoals op de verpakking.</div>
+                <div class="mt-1 text-xs text-brandText/50">Tip: plak hier je ingrediëntenlijst (INCI) zoals op de verpakking.</div>
             </label>
 
             <!-- NEW -->
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Allergenen (optioneel)
                 <textarea name="allergens" rows="3" class="mt-2 input-field" placeholder="Bijv: Limonene, Linalool, Citral, ..."><?= h($allergens) ?></textarea>
             </label>
 
             <div class="grid sm:grid-cols-3 gap-4">
-                <label class="text-sm text-white/80">
+                <label class="text-sm text-brandText/80">
                     Prijs (€)
                     <input name="price" value="<?= h($price) ?>" class="mt-2 input-field" placeholder="20.00" />
                 </label>
 
-                <label class="text-sm text-white/80">
+                <label class="text-sm text-brandText/80">
                     Volume (ml)
                     <input name="volume_ml" value="<?= h($volume_ml) ?>" class="mt-2 input-field" placeholder="50" />
                 </label>
 
-                <label class="text-sm text-white/80">
+                <label class="text-sm text-brandText/80">
                     Status
                     <select name="is_active" class="mt-2 input-field">
                         <option value="1" <?= $is_active === 1 ? 'selected' : '' ?>>Actief</option>
@@ -218,19 +218,19 @@ include __DIR__ . '/../includes/header.php';
         </div>
     </div>
 
-    <div class="lg:col-span-5 rounded-[28px] p-6 luxe-ring bg-black/25 shadow-glow">
+    <div class="lg:col-span-5 rounded-[28px] p-6 bg-white shadow-card border border-black/5">
         <div class="text-sm font-medium">Afbeeldingen</div>
-        <p class="mt-2 text-sm text-white/65">Hoofdfoto + maximaal 4 extra afbeeldingen (jpg/png/webp).</p>
+        <p class="mt-2 text-sm text-brandText/65">Hoofdfoto + maximaal 4 extra afbeeldingen (jpg/png/webp).</p>
 
         <div class="mt-5 grid gap-4">
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Hoofdfoto
-                <input type="file" name="main_image" accept="image/jpeg,image/png,image/webp" class="mt-2 block w-full text-sm text-white/70" />
+                <input type="file" name="main_image" accept="image/jpeg,image/png,image/webp" class="mt-2 block w-full text-sm text-brandText/70" />
             </label>
 
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Extra afbeeldingen (max 4)
-                <input type="file" name="extra_images[]" multiple accept="image/jpeg,image/png,image/webp" class="mt-2 block w-full text-sm text-white/70" />
+                <input type="file" name="extra_images[]" multiple accept="image/jpeg,image/png,image/webp" class="mt-2 block w-full text-sm text-brandText/70" />
             </label>
 
             <div class="pt-2 flex gap-3">
