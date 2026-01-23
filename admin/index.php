@@ -80,7 +80,7 @@ include __DIR__ . '/includes/header.php';
         <h3 class="mt-3 font-serif text-xl">Contactgegevens beheren</h3>
         <p class="mt-3 text-brandText/70">Telefoon, e-mail en adresgegevens die overal in de shop worden getoond.</p>
         <div class="mt-6 flex flex-wrap gap-3">
-            <a class="btn btn-secondary" href="/admin/content/contact.php">Beheer contactgegevens</a>
+            <a class="btn btn-secondary" href="/admin/contact/">Beheer contactgegevens</a>
         </div>
         <div class="mt-6 text-xs text-brandText/50"><?= $contactCount ?> contactset(s) opgeslagen.</div>
     </div>
