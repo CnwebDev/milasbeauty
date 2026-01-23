@@ -120,7 +120,7 @@ include __DIR__ . '/includes/header.php';
         <h3 class="mt-3 font-serif text-xl">Veel gestelde vragen</h3>
         <p class="mt-3 text-brandText/70">Beheer FAQ-items zodat klanten snel antwoord vinden.</p>
         <div class="mt-6 flex flex-wrap gap-3">
-            <a class="btn btn-secondary" href="/admin/content/faqs.php">Beheer FAQ</a>
+            <a class="btn btn-secondary" href="/admin/faqs/">Beheer FAQ</a>
         </div>
         <div class="mt-6 text-xs text-brandText/50"><?= $faqCount ?> FAQ-item(s) beschikbaar.</div>
     </div>
