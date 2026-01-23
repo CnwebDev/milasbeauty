@@ -4,6 +4,7 @@
     --color-brand-bg: #f4f3ef;
     --color-brand-accent: #ca9a8e;
     --color-brand-text: #404447;
+    --color-brand-bg-soft: #faf4f7;
     --color-header-pink: rgba(255, 128, 213, 0.61);
     --shadow-card: 4px 4px 8px 0px rgba(0, 0, 0, 0.1);
     --shadow-img: 4px 4px 20px 0px rgba(132, 153, 148, 0.5);
@@ -19,9 +20,14 @@
 }
 
 body {
-    background: var(--section-bg);
+    background: linear-gradient(180deg, var(--color-brand-bg-soft) 0%, var(--section-bg) 45%, rgba(255, 204, 239, 0.12) 100%);
     color: var(--section-text);
     font-weight: 400;
+}
+
+section,
+footer {
+    background: linear-gradient(180deg, rgba(255, 204, 239, 0.08) 0%, rgba(244, 243, 239, 0.7) 50%, rgba(255, 204, 239, 0.08) 100%);
 }
 
 .section-hero {
