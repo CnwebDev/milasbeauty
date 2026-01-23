@@ -16,6 +16,20 @@ $allergens = '';
 $price = '';
 $volume_ml = '';
 $is_active = 1;
+$sizes = '';
+$colors = '';
+
+function parse_option_list(string $value): array {
+    $parts = preg_split('/[\r\n,]+/', $value);
+    $items = [];
+    foreach ($parts as $part) {
+        $trimmed = trim($part);
+        if ($trimmed !== '') {
+            $items[] = $trimmed;
+        }
+    }
+    return array_values(array_unique($items));
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim((string)($_POST['name'] ?? ''));
@@ -27,6 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = trim((string)($_POST['price'] ?? ''));
     $volume_ml = trim((string)($_POST['volume_ml'] ?? ''));
     $is_active = (int)(($_POST['is_active'] ?? '1')) === 1 ? 1 : 0;
+    $sizes = trim((string)($_POST['sizes'] ?? ''));
+    $colors = trim((string)($_POST['colors'] ?? ''));
 
     if ($name === '') $errors[] = 'Naam is verplicht.';
 
@@ -53,6 +69,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         $productId = (int)$pdo->lastInsertId();
+
+        $sizeValues = parse_option_list($sizes);
+        if ($sizeValues) {
+            $stmt = $pdo->prepare("INSERT INTO product_sizes (product_id, size_label, sort_order) VALUES (?, ?, ?)");
+            foreach ($sizeValues as $index => $value) {
+                $stmt->execute([$productId, $value, $index + 1]);
+            }
+        }
+
+        $colorValues = parse_option_list($colors);
+        if ($colorValues) {
+            $stmt = $pdo->prepare("INSERT INTO product_colors (product_id, color_label, sort_order) VALUES (?, ?, ?)");
+            foreach ($colorValues as $index => $value) {
+                $stmt->execute([$productId, $value, $index + 1]);
+            }
+        }
 
         $uploadBase = public_upload_root() . DIRECTORY_SEPARATOR . $productId;
         if (!is_dir($uploadBase)) mkdir($uploadBase, 0775, true);
@@ -194,6 +226,18 @@ include __DIR__ . '/../includes/header.php';
             <label class="text-sm text-brandText/80">
                 Allergenen (optioneel)
                 <textarea name="allergens" rows="3" class="mt-2 input-field" placeholder="Bijv: Limonene, Linalool, Citral, ..."><?= h($allergens) ?></textarea>
+            </label>
+
+            <label class="text-sm text-brandText/80">
+                Maten (optioneel)
+                <textarea name="sizes" rows="3" class="mt-2 input-field" placeholder="Bijv: 30 ml&#10;50 ml&#10;100 ml"><?= h($sizes) ?></textarea>
+                <div class="mt-1 text-xs text-brandText/50">Vul per regel één maat in. Je kunt ook komma's gebruiken.</div>
+            </label>
+
+            <label class="text-sm text-brandText/80">
+                Kleuren (optioneel)
+                <textarea name="colors" rows="3" class="mt-2 input-field" placeholder="Bijv: Rose Gold&#10;Midnight Black"><?= h($colors) ?></textarea>
+                <div class="mt-1 text-xs text-brandText/50">Vul per regel één kleur in. Je kunt ook komma's gebruiken.</div>
             </label>
 
             <div class="grid sm:grid-cols-3 gap-4">

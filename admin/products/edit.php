@@ -23,6 +23,20 @@ $created = (int)($_GET['created'] ?? 0) === 1;
 
 $errors = [];
 $saved = false;
+$sizeInput = '';
+$colorInput = '';
+
+function parse_option_list(string $value): array {
+    $parts = preg_split('/[\r\n,]+/', $value);
+    $items = [];
+    foreach ($parts as $part) {
+        $trimmed = trim($part);
+        if ($trimmed !== '') {
+            $items[] = $trimmed;
+        }
+    }
+    return array_values(array_unique($items));
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim((string)($_POST['name'] ?? ''));
@@ -34,6 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $is_active = (int)(($_POST['is_active'] ?? '1')) === 1 ? 1 : 0;
     $ingredients = trim((string)($_POST['ingredients'] ?? ''));
     $allergens = trim((string)($_POST['allergens'] ?? ''));
+    $sizeInput = trim((string)($_POST['sizes'] ?? ''));
+    $colorInput = trim((string)($_POST['colors'] ?? ''));
 
     if ($name === '') $errors[] = 'Naam is verplicht.';
 
@@ -57,6 +73,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $id
                 ]);
 
+        $pdo->prepare("DELETE FROM product_sizes WHERE product_id=?")->execute([$id]);
+        $sizeValues = parse_option_list($sizeInput);
+        if ($sizeValues) {
+            $stmt = $pdo->prepare("INSERT INTO product_sizes (product_id, size_label, sort_order) VALUES (?, ?, ?)");
+            foreach ($sizeValues as $index => $value) {
+                $stmt->execute([$id, $value, $index + 1]);
+            }
+        }
+
+        $pdo->prepare("DELETE FROM product_colors WHERE product_id=?")->execute([$id]);
+        $colorValues = parse_option_list($colorInput);
+        if ($colorValues) {
+            $stmt = $pdo->prepare("INSERT INTO product_colors (product_id, color_label, sort_order) VALUES (?, ?, ?)");
+            foreach ($colorValues as $index => $value) {
+                $stmt->execute([$id, $value, $index + 1]);
+            }
+        }
 
         $uploadBase = public_upload_root() . DIRECTORY_SEPARATOR . $id;
         if (!is_dir($uploadBase)) mkdir($uploadBase, 0775, true);
@@ -162,6 +195,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$stmt = $pdo->prepare("SELECT size_label FROM product_sizes WHERE product_id=? ORDER BY sort_order ASC, id ASC");
+$stmt->execute([$id]);
+$sizeRows = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+$stmt = $pdo->prepare("SELECT color_label FROM product_colors WHERE product_id=? ORDER BY sort_order ASC, id ASC");
+$stmt->execute([$id]);
+$colorRows = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !$errors) {
+    $sizeInput = implode("\n", $sizeRows);
+    $colorInput = implode("\n", $colorRows);
+}
+
 $stmt = $pdo->prepare("SELECT * FROM product_images WHERE product_id=? ORDER BY sort_order ASC, id ASC");
 $stmt->execute([$id]);
 $extraImages = $stmt->fetchAll();
@@ -241,6 +287,18 @@ include __DIR__ . '/../includes/header.php';
                 <textarea name="allergens" rows="3"
                           class="mt-2 input-field"
                           placeholder="Bijv: Limonene, Linalool, ..."><?= h((string)($product['allergens'] ?? '')) ?></textarea>
+            </label>
+
+            <label class="text-sm text-brandText/80">
+                Maten (optioneel)
+                <textarea name="sizes" rows="3" class="mt-2 input-field" placeholder="Bijv: 30 ml&#10;50 ml&#10;100 ml"><?= h($sizeInput) ?></textarea>
+                <div class="mt-1 text-xs text-brandText/50">Vul per regel één maat in. Je kunt ook komma's gebruiken.</div>
+            </label>
+
+            <label class="text-sm text-brandText/80">
+                Kleuren (optioneel)
+                <textarea name="colors" rows="3" class="mt-2 input-field" placeholder="Bijv: Rose Gold&#10;Midnight Black"><?= h($colorInput) ?></textarea>
+                <div class="mt-1 text-xs text-brandText/50">Vul per regel één kleur in. Je kunt ook komma's gebruiken.</div>
             </label>
 
             <div class="grid sm:grid-cols-3 gap-4">

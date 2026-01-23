@@ -44,6 +44,14 @@ $stmt = $pdo->prepare("SELECT * FROM product_images WHERE product_id=? ORDER BY 
 $stmt->execute([$pid]);
 $extraImages = $stmt->fetchAll();
 
+$stmt = $pdo->prepare("SELECT size_label FROM product_sizes WHERE product_id=? ORDER BY sort_order ASC, id ASC");
+$stmt->execute([$pid]);
+$sizes = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+$stmt = $pdo->prepare("SELECT color_label FROM product_colors WHERE product_id=? ORDER BY sort_order ASC, id ASC");
+$stmt->execute([$pid]);
+$colors = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
 $stmt = $pdo->prepare("
     SELECT p.id, p.name, p.slug, p.short_description, p.price, p.volume_ml, p.main_image
     FROM product_relations pr
@@ -175,6 +183,32 @@ $navContactHref = '/#contact';
                     <p class="mt-5 text-sm text-brandText/70">
                         Een luxe beauty product dat jouw routine compleet maakt.
                     </p>
+                <?php endif; ?>
+
+                <?php if ($sizes || $colors): ?>
+                    <div class="mt-5 space-y-4">
+                        <?php if ($sizes): ?>
+                            <div>
+                                <div class="text-xs font-semibold uppercase tracking-[0.2em] text-brandText/60">Maten</div>
+                                <div class="mt-2 flex flex-wrap gap-2">
+                                    <?php foreach ($sizes as $size): ?>
+                                        <span class="rounded-full bg-brandBg px-3 py-1 text-xs font-semibold text-brandText/70"><?= h((string)$size) ?></span>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ($colors): ?>
+                            <div>
+                                <div class="text-xs font-semibold uppercase tracking-[0.2em] text-brandText/60">Kleuren</div>
+                                <div class="mt-2 flex flex-wrap gap-2">
+                                    <?php foreach ($colors as $color): ?>
+                                        <span class="rounded-full bg-brandBg px-3 py-1 text-xs font-semibold text-brandText/70"><?= h((string)$color) ?></span>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 <?php endif; ?>
 
                 <form method="post" class="mt-6 grid gap-4">
