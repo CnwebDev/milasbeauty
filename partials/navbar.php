@@ -19,19 +19,19 @@ $navContactHref = $navContactHref ?? '#contact';
             <nav class="hidden md:flex items-center gap-6 text-white">
                 <a class="hover:opacity-90" href="<?php echo htmlspecialchars($navHomeHref, ENT_QUOTES); ?>">Home</a>
                 <a class="hover:opacity-90" href="<?php echo htmlspecialchars($navPricesHref, ENT_QUOTES); ?>">Prijzen</a>
-                <a class="hover:opacity-90" href="https://salonkee.nl/salon/milas-beauty">Afspraak maken</a>
+<!--                <a class="hover:opacity-90" href="https://salonkee.nl/salon/milas-beauty">Afspraak maken</a>-->
                 <a class="hover:opacity-90" href="<?php echo htmlspecialchars($navContactHref, ENT_QUOTES); ?>">Contact</a>
 
                 <div class="relative group">
-                    <a class="hover:opacity-90" href="/store">Store</a>
-                    <div class="absolute left-0 mt-2 hidden min-w-[180px] rounded-md bg-headerPink/95 shadow-card group-hover:block">
-                        <a class="block px-4 py-2 text-white hover:bg-white/10" href="/tassen">Tassen</a>
-                        <a class="block px-4 py-2 text-white hover:bg-white/10" href="/kleding">Kleding</a>
-                        <a class="block px-4 py-2 text-white hover:bg-white/10" href="/pakjes">Pakjes</a>
-                    </div>
+                    <a class="hover:opacity-90" href="/products.php">Store</a>
+<!--                    <div class="absolute left-0 mt-2 hidden min-w-[180px] rounded-md bg-headerPink/95 shadow-card group-hover:block">-->
+<!--                        <a class="block px-4 py-2 text-white hover:bg-white/10" href="/tassen">Tassen</a>-->
+<!--                        <a class="block px-4 py-2 text-white hover:bg-white/10" href="/kleding">Kleding</a>-->
+<!--                        <a class="block px-4 py-2 text-white hover:bg-white/10" href="/pakjes">Pakjes</a>-->
+<!--                    </div>-->
                 </div>
 
-                <a href="/cart" class="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10" aria-label="Winkelwagen">
+                <a href="/cart.php" class="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10" aria-label="Winkelwagen">
                     🛒
                 </a>
             </nav>
@@ -43,9 +43,9 @@ $navContactHref = $navContactHref ?? '#contact';
             <div class="flex flex-col gap-3">
                 <a href="<?php echo htmlspecialchars($navHomeHref, ENT_QUOTES); ?>">Home</a>
                 <a href="<?php echo htmlspecialchars($navPricesHref, ENT_QUOTES); ?>">Prijzen</a>
-                <a href="https://salonkee.nl/salon/milas-beauty">Afspraak maken</a>
+<!--                <a href="https://salonkee.nl/salon/milas-beauty">Afspraak maken</a>-->
                 <a href="<?php echo htmlspecialchars($navContactHref, ENT_QUOTES); ?>">Contact</a>
-                <a href="/store">Store</a>
+                <a href="/products.php">Store</a>
             </div>
         </div>
     </div>
