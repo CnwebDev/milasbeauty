@@ -100,7 +100,7 @@ include __DIR__ . '/includes/header.php';
         <h3 class="mt-3 font-serif text-xl">Openingstijden beheren</h3>
         <p class="mt-3 text-brandText/70">Stel per dag de openingstijden en eventuele sluitingen in.</p>
         <div class="mt-6 flex flex-wrap gap-3">
-            <a class="btn btn-secondary" href="/admin/content/opening-hours.php">Beheer openingstijden</a>
+            <a class="btn btn-secondary" href="/admin/opening-hours/">Beheer openingstijden</a>
         </div>
         <div class="mt-6 text-xs text-brandText/50"><?= $openingHoursCount ?> dag(en) ingesteld.</div>
     </div>
