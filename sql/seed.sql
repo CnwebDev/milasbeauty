@@ -11,5 +11,17 @@ VALUES
     (1,3),
     (2,1);
 
+INSERT INTO product_sizes (product_id, size_label, sort_order)
+VALUES
+    (1, '30 ml', 1),
+    (1, '50 ml', 2),
+    (2, '50 ml', 1);
+
+INSERT INTO product_colors (product_id, color_label, sort_order)
+VALUES
+    (1, 'Rose Gold', 1),
+    (1, 'Midnight Black', 2),
+    (3, 'Crystal Clear', 1);
+
 -- Voorbeeld extra images (paden later via admin uploads)
 -- INSERT INTO product_images (product_id, image_path, sort_order) VALUES (1, 'uploads/products/1/extra1.jpg', 1);
