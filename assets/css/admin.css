@@ -47,40 +47,59 @@
     gap: 0.35rem;
     font-weight: 600;
     border-radius: 18px;
-    transition: all 0.2s ease;
     border: 1px solid transparent;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease,
+        color 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 6px 14px rgba(64, 68, 71, 0.08);
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-primary {
     border-color: var(--color-brand-pink);
-    color: var(--color-brand-pink);
-    background: rgba(255, 204, 239, 0.35);
+    color: #9d0f69;
+    background: linear-gradient(135deg, rgba(255, 204, 239, 0.6), rgba(255, 173, 228, 0.85));
     font-family: "Taviraj", ui-serif, Georgia, serif;
 }
 
 .btn-primary:hover {
-    box-shadow: var(--shadow-inset-glow);
+    background: linear-gradient(135deg, rgba(255, 190, 234, 0.85), rgba(255, 143, 216, 0.95));
+    box-shadow: 0 10px 20px rgba(255, 128, 213, 0.25), var(--shadow-inset-glow);
+    transform: translateY(-1px);
 }
 
 .btn-secondary {
     border-color: var(--admin-border);
     color: var(--color-brand-text);
-    background: var(--admin-card-soft);
+    background: rgba(255, 255, 255, 0.88);
 }
 
 .btn-secondary:hover {
-    background: var(--admin-card-bg);
-    box-shadow: var(--admin-shadow);
+    background: #ffffff;
+    box-shadow: 0 10px 18px rgba(132, 153, 148, 0.2);
+    transform: translateY(-1px);
 }
 
 .btn-danger {
     border-color: rgba(220, 38, 38, 0.4);
-    color: #b91c1c;
-    background: rgba(254, 226, 226, 0.6);
+    color: #9f1239;
+    background: linear-gradient(135deg, rgba(254, 226, 226, 0.8), rgba(254, 202, 202, 0.95));
 }
 
 .btn-danger:hover {
-    background: rgba(254, 202, 202, 0.9);
+    background: linear-gradient(135deg, rgba(254, 202, 202, 0.95), rgba(252, 165, 165, 0.95));
+    box-shadow: 0 10px 18px rgba(239, 68, 68, 0.22);
+    transform: translateY(-1px);
+}
+
+.btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 128, 213, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(64, 68, 71, 0.12);
 }
 
 .btn-md {
