@@ -172,9 +172,9 @@ include __DIR__ . '/../includes/header.php';
 
 <div class="flex items-end justify-between gap-6 flex-wrap">
     <div>
-        <div class="text-xs tracking-[.34em] uppercase text-white/60">Product</div>
-        <h1 class="mt-3 font-display text-3xl md:text-4xl">Aanpassen</h1>
-        <p class="mt-3 text-white/70">Product: <span class="gold-text font-display"><?= h($product['name']) ?></span></p>
+        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Product</div>
+        <h1 class="mt-3 font-serif text-3xl md:text-4xl">Aanpassen</h1>
+        <p class="mt-3 text-brandText/70">Product: <span class="text-brandText font-serif"><?= h($product['name']) ?></span></p>
     </div>
 
     <div class="flex gap-2">
@@ -186,57 +186,57 @@ include __DIR__ . '/../includes/header.php';
 </div>
 
 <?php if ($created): ?>
-    <div class="mt-6 rounded-[24px] p-5 luxe-ring bg-gold-500/10 text-white/80">
+    <div class="mt-6 rounded-[24px] p-5 border border-brandPinkSoft bg-brandPinkSoft/40 text-brandText/80">
         Product aangemaakt ✅ Je kunt nu afbeeldingen/relaties beheren.
     </div>
 <?php endif; ?>
 
 <?php if ($saved): ?>
-    <div class="mt-6 rounded-[24px] p-5 luxe-ring bg-gold-500/10 text-white/80">
+    <div class="mt-6 rounded-[24px] p-5 border border-brandPinkSoft bg-brandPinkSoft/40 text-brandText/80">
         Opgeslagen ✅
     </div>
 <?php endif; ?>
 
 <?php if ($errors): ?>
-    <div class="mt-6 rounded-[24px] p-5 luxe-ring bg-red-500/10 text-white/80">
+    <div class="mt-6 rounded-[24px] p-5 border border-red-200 bg-red-50 text-red-700">
         <div class="font-medium mb-2">Er ging iets mis:</div>
-        <ul class="list-disc ml-5 text-sm text-white/75">
+        <ul class="list-disc ml-5 text-sm text-red-600">
             <?php foreach ($errors as $e): ?><li><?= h($e) ?></li><?php endforeach; ?>
         </ul>
     </div>
 <?php endif; ?>
 
 <form class="mt-8 grid lg:grid-cols-12 gap-6" method="post" enctype="multipart/form-data">
-    <div class="lg:col-span-7 rounded-[28px] p-6 luxe-ring bg-black/25 shadow-glow">
+    <div class="lg:col-span-7 rounded-[28px] p-6 bg-white shadow-card border border-black/5">
         <div class="grid gap-4">
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Naam *
                 <input name="name" value="<?= h((string)$product['name']) ?>" class="mt-2 input-field" />
             </label>
 
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Slug
                 <input name="slug" value="<?= h((string)$product['slug']) ?>" class="mt-2 input-field" />
             </label>
 
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Korte omschrijving
                 <input name="short_description" value="<?= h((string)($product['short_description'] ?? '')) ?>" class="mt-2 input-field" />
             </label>
 
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Beschrijving
                 <textarea name="description" rows="6" class="mt-2 input-field"><?= h((string)($product['description'] ?? '')) ?></textarea>
             </label>
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Ingrediënten (optioneel)
                 <textarea name="ingredients" rows="4"
                           class="mt-2 input-field"
                           placeholder="Bijv: Alcohol Denat., Parfum, Aqua, ..."><?= h((string)($product['ingredients'] ?? '')) ?></textarea>
-                <div class="mt-1 text-xs text-white/45">INCI lijst van de verpakking.</div>
+                <div class="mt-1 text-xs text-brandText/50">INCI lijst van de verpakking.</div>
             </label>
 
-            <label class="text-sm text-white/80">
+            <label class="text-sm text-brandText/80">
                 Allergenen (optioneel)
                 <textarea name="allergens" rows="3"
                           class="mt-2 input-field"
@@ -244,17 +244,17 @@ include __DIR__ . '/../includes/header.php';
             </label>
 
             <div class="grid sm:grid-cols-3 gap-4">
-                <label class="text-sm text-white/80">
+                <label class="text-sm text-brandText/80">
                     Prijs (€)
                     <input name="price" value="<?= h((string)($product['price'] ?? '')) ?>" class="mt-2 input-field" />
                 </label>
 
-                <label class="text-sm text-white/80">
+                <label class="text-sm text-brandText/80">
                     Volume (ml)
                     <input name="volume_ml" value="<?= h((string)($product['volume_ml'] ?? '')) ?>" class="mt-2 input-field" />
                 </label>
 
-                <label class="text-sm text-white/80">
+                <label class="text-sm text-brandText/80">
                     Status
                     <select name="is_active" class="mt-2 input-field">
                         <option value="1" <?= (int)$product['is_active'] === 1 ? 'selected' : '' ?>>Actief</option>
@@ -271,40 +271,40 @@ include __DIR__ . '/../includes/header.php';
         </div>
     </div>
 
-    <div class="lg:col-span-5 rounded-[28px] p-6 luxe-ring bg-black/25 shadow-glow">
+    <div class="lg:col-span-5 rounded-[28px] p-6 bg-white shadow-card border border-black/5">
         <div class="text-sm font-medium">Afbeeldingen</div>
 
         <div class="mt-4 grid gap-4">
-            <div class="rounded-2xl p-4 luxe-ring bg-black/30">
-                <div class="text-xs tracking-[.28em] uppercase text-white/60">Hoofdfoto</div>
+            <div class="rounded-2xl p-4 border border-black/5 bg-brandBg">
+                <div class="text-xs tracking-[.28em] uppercase text-brandText/60">Hoofdfoto</div>
                 <div class="mt-3 flex items-center gap-4">
-                    <div class="h-20 w-20 rounded-2xl luxe-ring bg-black/35 overflow-hidden flex items-center justify-center">
+                    <div class="h-20 w-20 rounded-2xl border border-black/5 bg-white overflow-hidden flex items-center justify-center">
                         <?php if (!empty($product['main_image'])): ?>
                             <img src="/<?= h((string)$product['main_image']) ?>" class="h-full w-full object-cover" alt="">
                         <?php else: ?>
-                            <span class="text-white/50 text-xs">no img</span>
+                            <span class="text-brandText/50 text-xs">no img</span>
                         <?php endif; ?>
                     </div>
                     <div class="flex-1">
-                        <input type="file" name="main_image" accept="image/jpeg,image/png,image/webp" class="block w-full text-sm text-white/70" />
-                        <div class="mt-1 text-xs text-white/45">Upload vervangt de huidige hoofdfoto.</div>
+                        <input type="file" name="main_image" accept="image/jpeg,image/png,image/webp" class="block w-full text-sm text-brandText/70" />
+                        <div class="mt-1 text-xs text-brandText/50">Upload vervangt de huidige hoofdfoto.</div>
                     </div>
                 </div>
             </div>
 
-            <div class="rounded-2xl p-4 luxe-ring bg-black/30">
-                <div class="text-xs tracking-[.28em] uppercase text-white/60">Extra afbeeldingen</div>
-                <div class="mt-3 text-sm text-white/65">Max 4 totaal. Huidig: <?= count($extraImages) ?>.</div>
+            <div class="rounded-2xl p-4 border border-black/5 bg-brandBg">
+                <div class="text-xs tracking-[.28em] uppercase text-brandText/60">Extra afbeeldingen</div>
+                <div class="mt-3 text-sm text-brandText/65">Max 4 totaal. Huidig: <?= count($extraImages) ?>.</div>
 
                 <div class="mt-4 grid grid-cols-2 gap-3">
                     <?php foreach ($extraImages as $img): ?>
-                        <div class="rounded-2xl overflow-hidden luxe-ring bg-black/35">
+                        <div class="rounded-2xl overflow-hidden border border-black/5 bg-white">
                             <div class="h-28">
                                 <img src="/<?= h((string)$img['image_path']) ?>" class="h-full w-full object-cover" alt="">
                             </div>
                             <div class="p-3 flex items-center justify-between gap-2">
-                                <div class="text-xs text-white/50">#<?= (int)$img['sort_order'] ?></div>
-                                <a class="text-xs rounded-full px-3 py-1 luxe-ring bg-red-500/10 hover:bg-red-500/15 transition text-white/70"
+                                <div class="text-xs text-brandText/50">#<?= (int)$img['sort_order'] ?></div>
+                                <a class="text-xs rounded-full px-3 py-1 border border-red-200 bg-red-50 hover:bg-red-100 transition text-red-700"
                                    href="delete_image.php?id=<?= (int)$img['id'] ?>&product_id=<?= (int)$id ?>"
                                    onclick="return confirm('Afbeelding verwijderen?');"
                                 >Verwijder</a>
@@ -314,8 +314,8 @@ include __DIR__ . '/../includes/header.php';
                 </div>
 
                 <div class="mt-4">
-                    <input type="file" name="extra_images[]" multiple accept="image/jpeg,image/png,image/webp" class="block w-full text-sm text-white/70" />
-                    <div class="mt-1 text-xs text-white/45">Je kunt meerdere tegelijk uploaden, zolang het totaal ≤ 4 blijft.</div>
+                    <input type="file" name="extra_images[]" multiple accept="image/jpeg,image/png,image/webp" class="block w-full text-sm text-brandText/70" />
+                    <div class="mt-1 text-xs text-brandText/50">Je kunt meerdere tegelijk uploaden, zolang het totaal ≤ 4 blijft.</div>
                 </div>
             </div>
         </div>
