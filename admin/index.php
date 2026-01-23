@@ -67,63 +67,63 @@ include __DIR__ . '/includes/header.php';
         <div class="mt-6 text-xs text-brandText/50">Referentiepunt voor orderbeheer vanuit het adminpaneel.</div>
     </div>
 </div>
-<!---->
-<!--<div class="mt-10">-->
-<!--    <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Website beheer</div>-->
-<!--    <h2 class="mt-3 font-serif text-2xl">Content & informatie</h2>-->
-<!--    <p class="mt-3 text-brandText/70">Werk contactinformatie, openingstijden, diensten en veelgestelde vragen bij.</p>-->
-<!--</div>-->
-<!---->
-<!--<div class="mt-6 grid gap-6 md:grid-cols-2">-->
-<!--    <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5">-->
-<!--        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Contact</div>-->
-<!--        <h3 class="mt-3 font-serif text-xl">Contactgegevens beheren</h3>-->
-<!--        <p class="mt-3 text-brandText/70">Telefoon, e-mail en adresgegevens die overal in de shop worden getoond.</p>-->
-<!--        <div class="mt-6 flex flex-wrap gap-3">-->
-<!--            <a class="btn btn-secondary" href="/admin/content/contact.php">Beheer contactgegevens</a>-->
-<!--        </div>-->
-<!--        <div class="mt-6 text-xs text-brandText/50">--><?php //= $contactCount ?><!-- contactset(s) opgeslagen.</div>-->
-<!--    </div>-->
-<!---->
-<!--    <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5">-->
-<!--        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Socials</div>-->
-<!--        <h3 class="mt-3 font-serif text-xl">Social media kanalen</h3>-->
-<!--        <p class="mt-3 text-brandText/70">Beheer links naar Instagram, TikTok, Facebook en andere kanalen.</p>-->
-<!--        <div class="mt-6 flex flex-wrap gap-3">-->
-<!--            <a class="btn btn-secondary" href="/admin/content/social-media.php">Beheer social links</a>-->
-<!--        </div>-->
-<!--        <div class="mt-6 text-xs text-brandText/50">--><?php //= $socialCount ?><!-- social link(s) ingesteld.</div>-->
-<!--    </div>-->
-<!---->
-<!--    <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5">-->
-<!--        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Openingstijden</div>-->
-<!--        <h3 class="mt-3 font-serif text-xl">Openingstijden beheren</h3>-->
-<!--        <p class="mt-3 text-brandText/70">Stel per dag de openingstijden en eventuele sluitingen in.</p>-->
-<!--        <div class="mt-6 flex flex-wrap gap-3">-->
-<!--            <a class="btn btn-secondary" href="/admin/content/opening-hours.php">Beheer openingstijden</a>-->
-<!--        </div>-->
-<!--        <div class="mt-6 text-xs text-brandText/50">--><?php //= $openingHoursCount ?><!-- dag(en) ingesteld.</div>-->
-<!--    </div>-->
-<!---->
-<!--    <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5">-->
-<!--        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Diensten</div>-->
-<!--        <h3 class="mt-3 font-serif text-xl">Diensten beheren</h3>-->
-<!--        <p class="mt-3 text-brandText/70">Titels, omschrijvingen en afbeeldingen voor de dienstencatalogus.</p>-->
-<!--        <div class="mt-6 flex flex-wrap gap-3">-->
-<!--            <a class="btn btn-secondary" href="/admin/content/services.php">Beheer diensten</a>-->
-<!--        </div>-->
-<!--        <div class="mt-6 text-xs text-brandText/50">--><?php //= $serviceCount ?><!-- dienst(en) aangemaakt.</div>-->
-<!--    </div>-->
-<!---->
-<!--    <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5 md:col-span-2">-->
-<!--        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">FAQ</div>-->
-<!--        <h3 class="mt-3 font-serif text-xl">Veel gestelde vragen</h3>-->
-<!--        <p class="mt-3 text-brandText/70">Beheer FAQ-items zodat klanten snel antwoord vinden.</p>-->
-<!--        <div class="mt-6 flex flex-wrap gap-3">-->
-<!--            <a class="btn btn-secondary" href="/admin/content/faqs.php">Beheer FAQ</a>-->
-<!--        </div>-->
-<!--        <div class="mt-6 text-xs text-brandText/50">--><?php //= $faqCount ?><!-- FAQ-item(s) beschikbaar.</div>-->
-<!--    </div>-->
+
+<div class="mt-10">
+    <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Website beheer</div>
+    <h2 class="mt-3 font-serif text-2xl">Content & informatie</h2>
+    <p class="mt-3 text-brandText/70">Werk contactinformatie, openingstijden, diensten en veelgestelde vragen bij.</p>
+</div>
+
+<div class="mt-6 grid gap-6 md:grid-cols-2">
+    <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5">
+        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Contact</div>
+        <h3 class="mt-3 font-serif text-xl">Contactgegevens beheren</h3>
+        <p class="mt-3 text-brandText/70">Telefoon, e-mail en adresgegevens die overal in de shop worden getoond.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+            <a class="btn btn-secondary" href="/admin/content/contact.php">Beheer contactgegevens</a>
+        </div>
+        <div class="mt-6 text-xs text-brandText/50"><?= $contactCount ?> contactset(s) opgeslagen.</div>
+    </div>
+
+    <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5">
+        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Socials</div>
+        <h3 class="mt-3 font-serif text-xl">Social media kanalen</h3>
+        <p class="mt-3 text-brandText/70">Beheer links naar Instagram, TikTok, Facebook en andere kanalen.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+            <a class="btn btn-secondary" href="/admin/content/social-media.php">Beheer social links</a>
+        </div>
+        <div class="mt-6 text-xs text-brandText/50"><?= $socialCount ?> social link(s) ingesteld.</div>
+    </div>
+
+    <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5">
+        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Openingstijden</div>
+        <h3 class="mt-3 font-serif text-xl">Openingstijden beheren</h3>
+        <p class="mt-3 text-brandText/70">Stel per dag de openingstijden en eventuele sluitingen in.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+            <a class="btn btn-secondary" href="/admin/content/opening-hours.php">Beheer openingstijden</a>
+        </div>
+        <div class="mt-6 text-xs text-brandText/50"><?= $openingHoursCount ?> dag(en) ingesteld.</div>
+    </div>
+
+    <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5">
+        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">Diensten</div>
+        <h3 class="mt-3 font-serif text-xl">Diensten beheren</h3>
+        <p class="mt-3 text-brandText/70">Titels, omschrijvingen en afbeeldingen voor de dienstencatalogus.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+            <a class="btn btn-secondary" href="/admin/content/services.php">Beheer diensten</a>
+        </div>
+        <div class="mt-6 text-xs text-brandText/50"><?= $serviceCount ?> dienst(en) aangemaakt.</div>
+    </div>
+
+    <div class="rounded-[28px] p-6 bg-white shadow-card border border-black/5 md:col-span-2">
+        <div class="text-xs tracking-[.34em] uppercase text-brandText/60">FAQ</div>
+        <h3 class="mt-3 font-serif text-xl">Veel gestelde vragen</h3>
+        <p class="mt-3 text-brandText/70">Beheer FAQ-items zodat klanten snel antwoord vinden.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+            <a class="btn btn-secondary" href="/admin/content/faqs.php">Beheer FAQ</a>
+        </div>
+        <div class="mt-6 text-xs text-brandText/50"><?= $faqCount ?> FAQ-item(s) beschikbaar.</div>
+    </div>
 </div>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
