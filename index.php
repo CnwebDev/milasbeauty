@@ -79,7 +79,7 @@ $navContactHref = '#contact';
                 <div class="overflow-hidden rounded-2xl">
                     <img
                         class="w-full transition duration-300 group-hover:scale-110 group-hover:brightness-90"
-                        src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-23-at-11.39.22-e1742741462782.jpeg"
+                        src="assets/homepage/Naamloos.jpg"
                         alt=""
                     />
                 </div>
@@ -112,7 +112,7 @@ $navContactHref = '#contact';
         <div class="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center">
             <div class="relative">
                 <div class="overflow-hidden shadow-img about-image">
-                    <img class="w-full object-cover" src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/beauty-about.jpg" alt="">
+                    <img class="w-full object-cover" src="assets/homepage/beauty-about.jpg" alt="">
                 </div>
 
                 <!-- Contact card overlay -->
@@ -143,7 +143,7 @@ $navContactHref = '#contact';
         <!-- shape overlay links (absolute) -->
         <img
             class="pointer-events-none hidden md:block absolute left-0 top-0 w-[280px]"
-            src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/beauty-shape-color.png"
+            src="assets/homepage/beauty-shape-color.png"
             alt=""
         />
     </div>
@@ -153,7 +153,7 @@ $navContactHref = '#contact';
 <section id="services" class="section-services py-16 relative">
     <div class="mx-auto max-w-container px-4">
         <div class="text-center">
-            <img class="mx-auto h-[75px] w-[76px]" src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/beauty-seprate-color.png" alt="">
+            <img class="mx-auto h-[75px] w-[76px]" src="assets/homepage/beauty-seprate-color.png" alt="">
             <h2 class="mt-3 font-serif text-[44px] leading-[50px]">
                 Onze <span class="heading-highlight">Service</span>
             </h2>
@@ -163,7 +163,7 @@ $navContactHref = '#contact';
             <!-- Card 1 (altijd wit in Divi) -->
             <article class="bg-white rounded-xl shadow-card overflow-hidden">
                 <div class="relative h-[260px] w-[260px] -mt-10 -ml-10 rounded-full overflow-hidden">
-                    <img class="h-full w-full object-cover" src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-23-at-11.39.23-1.jpeg" alt="">
+                    <img class="h-full w-full object-cover" src="assets/homepage/WhatsApp-Image-2025-03-23-at-11.39.23-1.jpeg" alt="">
                 </div>
                 <div class="px-5 pb-7">
                     <h4 class="font-serif font-bold text-[30px] text-brandPink text-center">Manicure</h4>
@@ -174,7 +174,7 @@ $navContactHref = '#contact';
             <!-- Card hover (zoals Divi columns hover) -->
             <article class="rounded-xl overflow-hidden transition hover:bg-white hover:shadow-card">
                 <div class="relative h-[260px] w-[260px] -mt-10 -ml-10 rounded-full overflow-hidden">
-                    <img class="h-full w-full object-cover" src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/beauty-body-treatment.jpg" alt="">
+                    <img class="h-full w-full object-cover" src="assets/homepage/beauty-body-treatment.jpg" alt="">
                 </div>
                 <div class="px-5 pb-7">
                     <h4 class="font-serif font-bold text-[30px] text-brandPink text-center">Afslank massage</h4>
@@ -184,7 +184,7 @@ $navContactHref = '#contact';
 
             <article class="rounded-xl overflow-hidden transition hover:bg-white hover:shadow-card">
                 <div class="relative h-[260px] w-[260px] -mt-10 -ml-10 rounded-full overflow-hidden">
-                    <img class="h-full w-full object-cover" src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-23-at-11.39.231.jpeg" alt="">
+                    <img class="h-full w-full object-cover" src="assets/homepage/WhatsApp-Image-2025-03-23-at-11.39.231.jpeg" alt="">
                 </div>
                 <div class="px-5 pb-7">
                     <h4 class="font-serif font-bold text-[30px] text-brandPink text-center">Ontharen</h4>
@@ -197,7 +197,7 @@ $navContactHref = '#contact';
             <!-- herhaal voor 3 cards -->
             <article class="bg-white rounded-xl shadow-card overflow-hidden">
                 <div class="relative h-[260px] w-[260px] -mt-10 -ml-10 rounded-full overflow-hidden">
-                    <img class="h-full w-full object-cover" src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-23-at-11.39.19.jpeg" alt="">
+                    <img class="h-full w-full object-cover" src="assets/homepage/WhatsApp-Image-2025-03-23-at-11.39.19.jpeg" alt="">
                 </div>
                 <div class="px-5 pb-7">
                     <h4 class="font-serif font-bold text-[30px] text-brandPink text-center">Haar behandeling</h4>
@@ -207,7 +207,7 @@ $navContactHref = '#contact';
 
             <article class="rounded-xl overflow-hidden transition hover:bg-white hover:shadow-card">
                 <div class="relative h-[260px] w-[260px] -mt-10 -ml-10 rounded-full overflow-hidden">
-                    <img class="h-full w-full object-cover" src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-23-at-11.39.24.jpeg" alt="">
+                    <img class="h-full w-full object-cover" src="assets/homepage/WhatsApp-Image-2025-03-23-at-11.39.24.jpeg" alt="">
                 </div>
                 <div class="px-5 pb-7">
                     <h4 class="font-serif font-bold text-[30px] text-brandPink text-center">Wimpers en wenkbrauwen</h4>
@@ -217,7 +217,7 @@ $navContactHref = '#contact';
 
             <article class="rounded-xl overflow-hidden transition hover:bg-white hover:shadow-card">
                 <div class="relative h-[260px] w-[260px] -mt-10 -ml-10 rounded-full overflow-hidden">
-                    <img class="h-full w-full object-cover" src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-23-at-11.39.221.jpeg" alt="">
+                    <img class="h-full w-full object-cover" src="assets/homepage/WhatsApp-Image-2025-03-23-at-11.39.221.jpeg" alt="">
                 </div>
                 <div class="px-5 pb-7">
                     <h4 class="font-serif font-bold text-[30px] text-brandPink text-center">Nog veel meer</h4>
@@ -233,7 +233,7 @@ $navContactHref = '#contact';
         <!-- right shape overlay -->
         <img
             class="pointer-events-none hidden md:block absolute right-0 top-0 w-[280px]"
-            src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/beauty-shape-2-color.png"
+            src="assets/homepage/beauty-shape-color.png"
             alt=""
         />
     </div>
@@ -271,7 +271,7 @@ $navContactHref = '#contact';
                 </div>
 
                 <div class="w-full md:w-[calc(40%+50px)] md:-ml-[50px]">
-                    <img class="w-full" src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/beauty-facts1.png" alt="">
+                    <img class="w-full" src="assets/homepage/beauty-facts1.png" alt="">
                 </div>
             </div>
         </div>
@@ -282,14 +282,14 @@ $navContactHref = '#contact';
 <section class="section-reviews py-16">
     <div class="mx-auto max-w-container px-4">
         <div class="text-center">
-            <img class="mx-auto h-[75px] w-[76px]" src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/beauty-seprate-color.png" alt="">
+            <img class="mx-auto h-[75px] w-[76px]" src="assets/homepage/beauty-seprate-color.png" alt="">
             <h2 class="mt-3 font-serif text-[44px] leading-[50px]">Reviews van</h2>
             <h2 class="font-serif text-[44px] leading-[50px]"><span class="heading-highlight">klanten</span></h2>
         </div>
 
         <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
             <article class="relative rounded-xl bg-white/10 p-6 shadow-card overflow-hidden">
-                <div class="h-20 w-20 rounded-full bg-cover bg-center" style="background-image:url('https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-23-at-11.39.24.jpeg')"></div>
+                <div class="h-20 w-20 rounded-full bg-cover bg-center" style="background-image:url('assets/homepage/WhatsApp-Image-2025-03-23-at-11.39.24.jpeg')"></div>
                 <div class="relative mt-4 border-l border-white/50 pl-5 quote-watermark">
                     <p>“Wat een geweldige ervaring! ... Echt een aanrader!”</p>
                 </div>
@@ -304,7 +304,7 @@ $navContactHref = '#contact';
             </article>
 
             <article class="relative rounded-xl bg-white/10 p-6 shadow-card overflow-hidden">
-                <div class="h-20 w-20 rounded-full bg-cover bg-center" style="background-image:url('https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-23-at-11.43.15.jpeg')"></div>
+                <div class="h-20 w-20 rounded-full bg-cover bg-center" style="background-image:url('assets/homepage/WhatsApp-Image-2025-03-23-at-11.43.15.jpeg')"></div>
                 <div class="relative mt-4 border-l border-white/50 pl-5 quote-watermark">
                     <p>“Mijn manicure was tot in de puntjes verzorgd! ...”</p>
                 </div>

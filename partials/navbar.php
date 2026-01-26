@@ -9,7 +9,7 @@ $navContactHref = $navContactHref ?? '#contact';
         <div class="flex h-[55px] items-center justify-between">
             <a href="<?php echo htmlspecialchars($navHomeHref, ENT_QUOTES); ?>" class="flex items-center gap-3">
                 <img
-                    src="https://www.beautybymilasujeiry.nl/wp-content/uploads/2025/04/WhatsApp-Image-2025-04-16-at-21.27.36.jpeg"
+                    src="assets/homepage/Naamloos.jpg"
                     alt="Mila Beauty"
                     class="h-10 w-10 rounded-full object-cover"
                 />
