@@ -310,5 +310,6 @@ $navContactHref = '/#contact';
         </div>
     </section>
 <?php endif; ?>
+<?php require __DIR__ . '/partials/footer.php'; ?>
 </body>
 </html>

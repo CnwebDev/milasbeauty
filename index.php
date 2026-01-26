@@ -350,19 +350,7 @@ $navContactHref = '#contact';
     </div>
 </section>
 
-<!-- FOOTER -->
-<footer id="contact" class="section-footer py-10">
-    <div class="mx-auto max-w-container px-4 text-center">
-        <div>
-            <h6 class="font-semibold">Email</h6>
-            <p>info@beautybymilasujeiry.com</p>
-        </div>
-
-        <div class="mt-8 text-sm">
-            Mede mogelijk gemaakt door 2026 <a class="underline" href="https://racdigital.nl">RAC DIGITAL</a>
-        </div>
-    </div>
-</footer>
+<?php require __DIR__ . '/partials/footer.php'; ?>
 
 <script>
     // Mobile menu
