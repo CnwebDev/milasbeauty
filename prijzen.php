@@ -962,7 +962,7 @@ $navContactHref = '#contact';
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="section-pricing-contact pb-16">
+<section id="pricing-contact" class="section-pricing-contact pb-16">
     <div class="mx-auto max-w-container px-4">
         <div class="rounded-2xl bg-white shadow-card overflow-hidden">
             <div class="p-6 border-b border-black/5">
@@ -1010,11 +1010,7 @@ $navContactHref = '#contact';
     </div>
 </section>
 
-<footer class="section-footer py-10">
-    <div class="mx-auto max-w-container px-4 text-center text-sm opacity-75">
-        <p>© <span id="year"></span> Mila Beauty • Prijzen kunnen wijzigen • Zetfouten voorbehouden</p>
-    </div>
-</footer>
+<?php require __DIR__ . '/partials/footer.php'; ?>
 
 <!-- SCRIPTS -->
 <script>
@@ -1026,10 +1022,6 @@ $navContactHref = '#contact';
             mobileMenu.classList.toggle("hidden");
         });
     }
-
-    // Dynamic year
-    const y = document.getElementById("year");
-    if (y) y.textContent = new Date().getFullYear();
 
     // Search in prices
     const input = document.getElementById("priceSearch");

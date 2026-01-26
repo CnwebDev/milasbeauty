@@ -1,0 +1,7 @@
+<svg width="220" height="80" viewBox="0 0 220 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="220" height="80" rx="18" fill="#F4F3EF"/>
+  <circle cx="40" cy="40" r="22" fill="#FFCCEF"/>
+  <circle cx="40" cy="40" r="12" fill="#FF80D5"/>
+  <text x="70" y="40" font-family="Montserrat, Arial, sans-serif" font-size="24" font-weight="700" fill="#404447">Mila</text>
+  <text x="70" y="62" font-family="Taviraj, Georgia, serif" font-size="18" font-weight="600" fill="#CA9A8E">Beauty</text>
+</svg>
